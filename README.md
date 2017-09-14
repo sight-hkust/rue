@@ -28,7 +28,7 @@ For React components we suggest the use of JSX style guide also from [Airbnb](ht
 
 ## Getting Started
 
-This project is initialized with (`create-react-app`)[https://github.com/facebookincubator/create-react-app], so to get started.
+This project is initialized with [`create-react-app`](https://github.com/facebookincubator/create-react-app), so to get started.
 
 First clone the repository:
 
