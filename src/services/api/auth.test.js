@@ -1,20 +1,52 @@
 import * as auth from './auth'
 
+const mock = {
+  registration: {
+    payload: [
+      {
+        attribute: 'username',
+        value: 'defaultMockUser'
+      },
+      {
+        attribute: 'password',
+        value: 'p@s5w0rd'
+      },
+      {
+        attribute: 'email',
+        value: 'test@sight.ust.hk'
+      },
+      {
+        attribute: 'nickname',
+        value: 'Dr Steven'
+      },
+      {
+        attribute: 'role',
+        value: 'Doctor'
+      }
+    ]
+  },
+  login: {
+    payload: {
+      username: 'defaultMockUser',
+      password: 'p@s5w0rd'
+    }
+  }
+}
+
 test('Should fail registration', async () => {
   expect.assertions(1)
-  const token = await auth.register('default', 'password')
-  expect(token.error).toBe('Invalid Registration Authorization Token')
+  const result = await auth.register(mock.registration.payload, 'invalidToken')
+  expect(result.error).toBe('Invalid Registration Authorization Token')
 })
 
-// test('Should complete registration', async () => {
-// 	expect.assertions(1)
-// 	const token = await auth.register('default', 'password', 'easymedPermittedAccess')
-// 	expect(token).toBeDefined()
-// })
+test('Should complete registration', async () => {
+	expect.assertions(1)
+	const result = await auth.register(mock.registration.payload, 'easymedPermittedAccess')
+	expect(result.session).toBeTruthy()
+})
 
-// test('Should login successfully', async () => {
-// 	expect.assertions(1)
-// 	const token = await auth.authenticate('default', 'password')
-// 	expect(token).toBeDefined()
-// 	console.log(token)
-// })
+test('Should login successfully', async () => {
+	expect.assertions(1)
+	const result = await auth.authenticate(mock.login.payload.username, mock.login.payload.password)
+	expect(result.authenticated).toBe(true)
+})
