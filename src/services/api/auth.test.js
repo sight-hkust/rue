@@ -29,7 +29,8 @@ const mock = {
     payload: {
       username: 'defaultMockUser',
       password: 'p@s5w0rd'
-    }
+    },
+    token: null
   }
 }
 
@@ -40,13 +41,13 @@ test('Should fail registration', async () => {
 })
 
 test('Should complete registration', async () => {
-	expect.assertions(1)
-	const result = await auth.register(mock.registration.payload, 'easymedPermittedAccess')
-	expect(result.session).toBeTruthy()
+  expect.assertions(1)
+  const result = await auth.register(mock.registration.payload, 'easymedPermittedAccess')
+  expect(result.status).toBe(auth.SUCCESS)
 })
 
 test('Should login successfully', async () => {
-	expect.assertions(1)
-	const result = await auth.authenticate(mock.login.payload.username, mock.login.payload.password)
-	expect(result.authenticated).toBe(true)
+  expect.assertions(1)
+  const result = await auth.authenticate(mock.login.payload.username, mock.login.payload.password)
+  expect(result.status).toBe(auth.SUCCESS)
 })

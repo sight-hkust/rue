@@ -1,5 +1,5 @@
 {
-  "name": "create-react-app-antd",
+  "name": "rue",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -27,6 +27,8 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "babel-preset-react-app": "^3.0.2"
+    "babel-preset-react-app": "^3.0.2",
+    "eslint": "^4.7.0",
+    "eslint-plugin-react": "^7.3.0"
   }
 }

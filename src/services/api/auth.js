@@ -1,5 +1,7 @@
 import Parse from './parse'
 
+export const SUCCESS = Symbol('SUCCESS')
+export const FAILURE = Symbol('FAILURE')
 /*
   authenticate the user using username and password
   async/await is a new pattern adopted in ES2016,
@@ -10,7 +12,7 @@ import Parse from './parse'
 async function authenticate(username, password){
   try {
     const user =  await Parse.User.logIn(username, password)
-    return { authenticated: user.authenticated(), session: user.getSessionToken() }
+    return { status: user.authenticated()? SUCCESS:FAILURE, session: user.getSessionToken() }
   } catch (error) {
     return { error: error }
   }
@@ -19,9 +21,9 @@ async function authenticate(username, password){
 async function authenticateUsing(token){
   try {
     const user = await Parse.User.become(token)
-    return { authenticated: user.authenticated(), session: user.getSessionToken() }
+    return { status: user.authenticated()? SUCCESS:FAILURE, session: user.getSessionToken() }
   } catch (error) {
-    return { authenticated: false, error: error }
+    return { status: false, error: error }
   }
 }
 
@@ -29,13 +31,13 @@ async function deauthenticate(){
   if(Parse.User.authenticated()){
     try {
       await Parse.User.logOut()
-      return { deauthenticated: true }
+      return { status: SUCCESS }
     } catch (error) {
-      return { deauthenticated: false, error: error }
+      return { status: FAILURE, error: error }
     }
   }
   else {
-    return { deauthenticated: false, error: 'User has not been authenticated' }
+    return { status: FAILURE, error: 'User has not been authenticated' }
   }
 }
 
@@ -45,14 +47,14 @@ async function register(credentials, token){
   if(token === registrationToken){
     try {
       const user = new Parse.User()
-      credentials.map((credential) => { user.set(credential.attribute, credential.value) })
+      credentials.forEach((credential) => { user.set(credential.attribute, credential.value) })
       await user.signUp()
-      return { authenticated: user.authenticated(), session: user.getSessionToken() }
+      return { status: user.authenticated()? SUCCESS:FAILURE, session: user.getSessionToken() }
     } catch (error) {
-      return { authenticated: false, error: error }
+      return { status: FAILURE, error: error }
     }
   }
   return { error: 'Invalid Registration Authorization Token' }
 }
 
-export { authenticate, deauthenticate, register }
+export { authenticate, authenticateUsing, deauthenticate, register }
