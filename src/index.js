@@ -7,6 +7,8 @@ import { Provider } from 'react-redux'
 import './index.css'
 import App from './App' 
 import registerServiceWorker from './registerServiceWorker'
+import { LocaleProvider } from 'antd'
+import enUS from 'antd/lib/locale-provider/en_US'
 /*eslint-enable no-unused-vars*/
 
 /*
@@ -27,7 +29,7 @@ const history = createHistory()
 */
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(history)}>
-    <App history={history} />
+    <LocaleProvider locale={enUS}><App history={history} /></LocaleProvider>
   </Provider>,
   document.getElementById('root')
 )

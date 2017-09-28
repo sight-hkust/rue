@@ -18,7 +18,7 @@ module.exports = function override(config, env) {
       '@btn-height-base': '2.25rem',
       '@btn-height-lg': '2.4rem',
       '@btn-height-sm': '2rem',
-      '@border-radius-base': '.25rem'
+      '@border-radius-base': '.3rem'
     },
   })
   return config
