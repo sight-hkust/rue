@@ -14,7 +14,9 @@ async function authenticate(username, password){
     const user =  await Parse.User.logIn(username, password)
     return { status: user.authenticated()? SUCCESS:FAILURE, session: user.getSessionToken() }
   } catch (error) {
-    return { error: error }
+    if(error.errors){
+      throw { status: FAILURE, message: error.errors.map( e => e.message ) || error.message }
+    }
   }
 }
 
@@ -23,7 +25,7 @@ async function authenticateUsing(token){
     const user = await Parse.User.become(token)
     return { status: user.authenticated()? SUCCESS:FAILURE, session: user.getSessionToken() }
   } catch (error) {
-    return { status: false, error: error }
+    throw { status: FAILURE, message: error.errors.map( e => e.message ) || error.message }
   }
 }
 
@@ -33,28 +35,30 @@ async function deauthenticate(){
       await Parse.User.logOut()
       return { status: SUCCESS }
     } catch (error) {
-      return { status: FAILURE, error: error }
+      throw { status: FAILURE, message: error.errors.map( e => e.message ) || error.message }
     }
   }
   else {
-    return { status: FAILURE, error: 'User has not been authenticated' }
+    throw { status: FAILURE, message: 'User has not been authenticated' }
   }
 }
 
 async function register(credentials, token){
+  console.log(credentials)
+  console.log(`token:${token}`)
   const config = await Parse.Config.get()
   const registrationToken = config.get('registrationAuthorizationToken')
   if(token === registrationToken){
+    const user = new Parse.User()
+    credentials.forEach((credential) => { user.set(credential.attribute, credential.value) })
     try {
-      const user = new Parse.User()
-      credentials.forEach((credential) => { user.set(credential.attribute, credential.value) })
       await user.signUp()
       return { status: user.authenticated()? SUCCESS:FAILURE, session: user.getSessionToken() }
     } catch (error) {
-      return { status: FAILURE, error: error }
+      throw { status: FAILURE, message: error.errors.map( e => e.message ) || error.message }
     }
   }
-  return { error: 'Invalid Registration Authorization Token' }
+  throw { status: FAILURE, message: 'Invalid Registration Authorization Token' }
 }
 
 export { authenticate, authenticateUsing, deauthenticate, register }

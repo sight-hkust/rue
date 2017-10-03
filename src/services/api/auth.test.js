@@ -16,7 +16,7 @@ const mock = {
         value: 'test@sight.ust.hk'
       },
       {
-        attribute: 'nickname',
+        attribute: 'name',
         value: 'Dr Steven'
       },
       {

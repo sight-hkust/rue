@@ -6,8 +6,8 @@
   border: 1px solid rgba(0,0,0,.04)!important;
   position: absolute;
   padding: 15px 15px;
-  width: 25%;
-  height: 45%;
+  width: 30%;
+  height: 75%;
   background-color: white;
   box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.25);
   /* box-shadow: 0 1px 7px rgba(0,0,0,.05); */
@@ -21,3 +21,94 @@
   height: 100px;
 }
 
+.em-component-registrationform-submit-button {
+  align-self: center;
+}
+
+.em-component-registrationform-input-fields {
+  align-self: center;
+  display: flex;
+  margin: 0;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.em-component-registrationform-input-field {
+  display: flex;
+  flex: 1;
+  margin: 0.87em 0;
+}
+
+.em-component-registrationform-input-field > input {
+  background-image: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  transition: background-color 0.3s;
+}
+
+.em-component-registrationform-input-field > label,
+.em-component-registrationform-input-field > input[type='text'],
+.em-component-registrationform-input-field > input[type='password'] {
+border-radius: 0.25rem;
+padding: 16px;
+padding: 1rem;
+}
+
+.em-component-registrationform-input-field > label {
+  background-color: #F3F4F5;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  padding-left: 20px;
+  padding-left: 1.25rem;
+  padding-right: 20px;
+  padding-right: 1.25rem;
+}
+
+.em-component-registrationform-input-field > label > i {
+  color: #8A91FF;
+}
+
+.em-component-registrationform-input-field > input[type='password'],
+.em-component-registrationform-input-field > input[type='text'] {
+  color: #606468;
+  width: 14rem;
+  background-color: #f6f8fa;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.em-component-registrationform-input {
+  background-image: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  margin: 0;
+  outline: 0;
+  background-color: #3b4148;
+  border-top-right-radius: 0.25em;
+  border-bottom-right-radius: 0.25em;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  display: inline-block;
+  text-align: start;
+}
+
+.em-component-registrationform-input-field-label {
+  background-color: #363b41;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.em-component-registrationform-register-button {
+  border-width: 0;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
+}
