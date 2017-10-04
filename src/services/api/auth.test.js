@@ -1,6 +1,6 @@
 import * as auth from './auth'
 
-const mock = {
+const data = {
   registration: {
     payload: [
       {
@@ -36,18 +36,18 @@ const mock = {
 
 test('Should fail registration', async () => {
   expect.assertions(1)
-  const result = await auth.register(mock.registration.payload, 'invalidToken')
+  const result = await auth.register(data.registration.payload, 'invalidToken')
   expect(result.error).toBe('Invalid Registration Authorization Token')
 })
 
 test('Should complete registration', async () => {
   expect.assertions(1)
-  const result = await auth.register(mock.registration.payload, 'easymedPermittedAccess')
+  const result = await auth.register(data.registration.payload, 'easymedPermittedAccess')
   expect(result.status).toBe(auth.SUCCESS)
 })
 
 test('Should login successfully', async () => {
   expect.assertions(1)
-  const result = await auth.authenticate(mock.login.payload.username, mock.login.payload.password)
+  const result = await auth.authenticate(data.login.payload.username, data.login.payload.password)
   expect(result.status).toBe(auth.SUCCESS)
 })
