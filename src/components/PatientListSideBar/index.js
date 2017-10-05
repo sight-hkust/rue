@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Card, Icon, Input, AutoComplete, Layout } from 'antd'
+import './style.css'
 
 class PatientListSideBar extends Component {
   
@@ -33,6 +34,7 @@ class PatientListSideBar extends Component {
             style={{ width: 200 }}
             onSelect={onSelect}
             onSearch={this.handleSearch}
+            filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
             placeholder="Search patient..."
           >
           <Input suffix={<Icon type="search" className="certain-category-icon" />} />
@@ -45,16 +47,42 @@ class PatientListSideBar extends Component {
     return (
       <Content>
       <div className="em-demo-queue">
-      <section>
+        <section>
+        
         <center style={{marginTop: '20%'}}>
           <h2>Patient Queue</h2>
-          <PatientSearch />
-          <Card title="Card title" style={{ width: 300 }}>
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
-          </Card>
         </center>
+
+        <center style={{marginTop: '5%'}}>
+        <div class="patient-search">
+        <PatientSearch />
+        </div>
+        </center>
+
+        <center style={{marginTop: '5%'}}>
+        <div class="patient-list">
+        <Card title="Add patient" style={{ width: 300 }}>
+            <p>Click on this card to create new patient.</p>
+          </Card>
+          <Card title="Add patient" style={{ width: 300 }}>
+            <p>Click on this card to create new patient.</p>
+          </Card>
+          <Card title="Add patient" style={{ width: 300 }}>
+            <p>Click on this card to create new patient.</p>
+          </Card>
+
+          <Card title="Add patient" style={{ width: 300 }}>
+            <p>Click on this card to create new patient.</p>
+          </Card>
+          <Card title="Add patient" style={{ width: 300 }}>
+            <p>Click on this card to create new patient.</p>
+          </Card>
+          <Card title="Add patient" style={{ width: 300 }}>
+            <p>Click on this card to create new patient.</p>
+          </Card>
+        </div>
+        </center>
+
       </section>
     </div>
      </Content>
