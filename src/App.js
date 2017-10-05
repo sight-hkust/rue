@@ -10,6 +10,7 @@ import { ConnectedRouter } from 'react-router-redux'
 import Home from './scenes/Home'
 import Login from './scenes/Login'
 import Registration from './scenes/Registration'
+import PatientList from './scenes/PatientList'
 
 /*
   The exported App component act as both a router
@@ -24,6 +25,7 @@ class App extends Component {
           <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Registration} />
+          <Route path="/feature-patientlist" component={PatientList} />
         </Switch>
       </ConnectedRouter>
     )
