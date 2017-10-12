@@ -1,11 +1,4 @@
-export const AUTH_REQUEST = 'AUTH_REQUEST'
-export const AUTH_SUCCESS = 'AUTH_SUCCESS'
-export const AUTH_FAILURE = 'AUTH_FAILURE'
-
-export const authorize = (login, password) => ({
-  type: AUTH_REQUEST,
-  payload: { login, password }
-})
+import { AUTH_RESET, AUTH_FAILURE, AUTH_LOGIN, AUTH_SUCCESS, AUTH_LOGOUT, AUTH_REGISTER } from '../action/types'
 
 const initialState = {
   token: localStorage.getItem('token'),
@@ -19,6 +12,18 @@ const authReducer = (state = initialState, { type, payload }) => {
   }
   case AUTH_FAILURE: {
     return { ...state, error: payload }
+  }
+  case AUTH_LOGIN: {
+    return { ...state }
+  }
+  case AUTH_RESET:{
+    return { ...state }
+  }
+  case AUTH_LOGOUT:{
+    return { ...state }
+  }
+  case AUTH_REGISTER:{
+    return { ...state }
   }
   default:
     return state

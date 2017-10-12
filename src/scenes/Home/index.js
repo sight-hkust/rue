@@ -1,9 +1,10 @@
 /*eslint-disable no-unused-vars*/
 import React, { Component } from 'react'
 import { Layout } from 'antd'
-import NavigationBar from '../../components/NavigationBar'
-import './style.css'
+import NavigationBar from 'components/NavigationBar'
 /*eslint-enable no-unused-vars*/
+import './style.css'
+
 class Home extends Component {
   render(){
     const { Header, Content, Footer } = Layout
