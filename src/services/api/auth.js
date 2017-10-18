@@ -1,7 +1,9 @@
 import Parse from './parse'
+import { constructErrorFromParseError } from 'services/api/utils/error'
 
 export const SUCCESS = Symbol('SUCCESS')
 export const FAILURE = Symbol('FAILURE')
+
 /*
   authenticate the user using username and password
   async/await is a new pattern adopted in ES2016,
@@ -14,7 +16,7 @@ async function authenticate(username, password){
     const user =  await Parse.User.logIn(username, password)
     return { status: user.authenticated()? SUCCESS:FAILURE, session: user.getSessionToken() }
   } catch (error) {
-    return { error: error }
+    throw constructErrorFromParseError(error)
   }
 }
 
@@ -23,7 +25,7 @@ async function authenticateUsing(token){
     const user = await Parse.User.become(token)
     return { status: user.authenticated()? SUCCESS:FAILURE, session: user.getSessionToken() }
   } catch (error) {
-    return { status: false, error: error }
+    throw constructErrorFromParseError(error)
   }
 }
 
@@ -33,28 +35,30 @@ async function deauthenticate(){
       await Parse.User.logOut()
       return { status: SUCCESS }
     } catch (error) {
-      return { status: FAILURE, error: error }
+      throw constructErrorFromParseError(error)
     }
   }
   else {
-    return { status: FAILURE, error: 'User has not been authenticated' }
+    throw new Error('User has not been authenticated')
   }
 }
 
 async function register(credentials, token){
+  console.log(credentials)
+  console.log(`token:${token}`)
   const config = await Parse.Config.get()
   const registrationToken = config.get('registrationAuthorizationToken')
   if(token === registrationToken){
+    const user = new Parse.User()
+    credentials.forEach((credential) => { user.set(credential.attribute, credential.value) })
     try {
-      const user = new Parse.User()
-      credentials.forEach((credential) => { user.set(credential.attribute, credential.value) })
       await user.signUp()
       return { status: user.authenticated()? SUCCESS:FAILURE, session: user.getSessionToken() }
     } catch (error) {
-      return { status: FAILURE, error: error }
+      throw constructErrorFromParseError(error)
     }
   }
-  return { error: 'Invalid Registration Authorization Token' }
+  throw new Error('Invalid Registration Authorization Token')
 }
 
 export { authenticate, authenticateUsing, deauthenticate, register }
