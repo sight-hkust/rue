@@ -7,7 +7,7 @@ class PatientListSideBar extends Component {
   constructor(props) {
     super(props);
 
-    const patients = [{name: "kris", age: "20"}, {name: "malinda", age: "25"}, {name: "christine", age: "33"}, {name: "rick", age: "62"}, {name: "morty", age: "13"}, {name: "finn", age: "8"}, {name: "jake", age: "44"}];
+    const patients = [{id: "123", name: "kris", age: "20"}, {id: "222", name: "malinda", age: "25"}, {id: "321", name: "christine", age: "33"}, {id: "901", name: "rick", age: "62"}, {id: "109", name: "morty", age: "13"}, {id: "333", name: "finn", age: "8"}, {id: "541", name: "jake", age: "44"}];
     
     this.state = {patients}
   }
@@ -79,13 +79,11 @@ class PatientListSideBar extends Component {
 
         
         <div class="patient-list">
-        {this.state.patients.map((patient, index) => (
           <center style={{marginTop: '5%'}}>
-          <Card key={index} title={patient.name} style={{ width: 300 }}>
+          <Card key={patients.id} title={patient.name} style={{ width: 300 }}>
           <p>Age: {patient.age}</p>
         </Card>
         </center>
-        ))}
         </div>
 
         <center style={{marginTop: '5%'}}>
