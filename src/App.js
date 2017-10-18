@@ -8,18 +8,11 @@ import { ConnectedRouter } from 'react-router-redux'
   Import all the relavant pages from the
   scenes directory
 */
-<<<<<<< HEAD
 import Home from './scenes/Home'
-import Login from './scenes/Login'
 import Registration from './scenes/Registration'
 import PatientList from './scenes/PatientList'
-=======
 import Root from 'scenes/Root'
-import Home from 'scenes/Home'
 import Login from 'scenes/Login'
-import Registration from 'scenes/Registration'
->>>>>>> refs/remotes/origin/develop
-
 /*
   The exported App component act as both a router
   for navigating pages using different route definition
