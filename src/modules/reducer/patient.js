@@ -1,9 +1,20 @@
-export const CREATE_PATIENT = 'CREATE_PATIENT'
-export const UPDATE_PATIENT = 'UPDATE_PATIENT'
-export const DELETE_PATIENT = 'DELETE_PATIENT'
-export const FETCH_PATIENT = 'FETCH_PATIENT'
+import {
+  CREATE_PATIENT_SUCCESS, CLEAR_CURRENT_PATIENT
+} from '../action/types'
 
-export const createPatient = (profile) => ({
-  type: CREATE_PATIENT,
-  payload: profile
-})
+const initialState = {
+  'patient': null,
+}
+
+const patientReducer = (state = initialState, { type, payload }) => {
+  switch (type) {
+  case CLEAR_CURRENT_PATIENT:
+    return { ...state, patient: null }
+  case CREATE_PATIENT_SUCCESS:
+    return { ...state, patient: payload }
+  default:
+    return state
+  }
+}
+
+export default patientReducer
