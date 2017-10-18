@@ -3,7 +3,7 @@ import { Card, Icon, Input, AutoComplete, Layout } from 'antd'
 import './style.css'
 
 class PatientListSideBar extends Component {
-  
+
   render(){
     const { Content } = Layout
     
@@ -35,7 +35,7 @@ class PatientListSideBar extends Component {
             onSelect={onSelect}
             onSearch={this.handleSearch}
             filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
-            placeholder="Search patient..."
+            placeholder="Search patient ID or name..."
           >
           <Input suffix={<Icon type="search" className="certain-category-icon" />} />
           </AutoComplete>
@@ -64,24 +64,10 @@ class PatientListSideBar extends Component {
         <Card title="Add patient" style={{ width: 300 }}>
             <p>Click on this card to create new patient.</p>
           </Card>
-          <Card title="Add patient" style={{ width: 300 }}>
-            <p>Click on this card to create new patient.</p>
-          </Card>
-          <Card title="Add patient" style={{ width: 300 }}>
-            <p>Click on this card to create new patient.</p>
-          </Card>
-
-          <Card title="Add patient" style={{ width: 300 }}>
-            <p>Click on this card to create new patient.</p>
-          </Card>
-          <Card title="Add patient" style={{ width: 300 }}>
-            <p>Click on this card to create new patient.</p>
-          </Card>
-          <Card title="Add patient" style={{ width: 300 }}>
-            <p>Click on this card to create new patient.</p>
-          </Card>
         </div>
         </center>
+
+        {{patientlist}}
 
       </section>
     </div>
