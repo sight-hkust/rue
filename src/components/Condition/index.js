@@ -1,106 +1,65 @@
 import React, { Component } from 'react'
-import { Checkbox, DatePicker, Form, Switch } from 'antd'
-const FormItem = Form.Item
+import { Checkbox, DatePicker, Switch, Col, Row, Input, InputNumber } from 'antd'
+import './style.css'
 const CheckboxGroup = Checkbox.Group
+const TextArea = Input.TextArea
 
 class Condition extends Component {
-  constructor(props){
-    super(props)
-    
-  }
   render() {
-    const { getFieldDecorator } = this.props.form
-    const formItemLayout = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 20 },
+    const conditionPregnancySurveyitemInputNumberProps = {
+      min: 1, max: 10, defaultValue: 1,
+      style: { }
     }
+
+    const pregnancySurveyQuestionItems = ['pregnancy', 'live birth', 'miscarriage', 'abortion', 'still birth']
+    const renderedPregnancySurvey = pregnancySurveyQuestionItems.map((item) => (
+      <div>
+        <span>No. of {item}</span>
+        <InputNumber {...conditionPregnancySurveyitemInputNumberProps}/>
+      </div>
+    ) )
     return (
-      <Form layout="vertical">
-        <FormItem {...formItemLayout} label="Allergies">
-          {getFieldDecorator('allergies')(
-            <TextArea rows={4} />
-          )}
-        </FormItem>
-        <FormItem {...formItemLayout} label="Interactions">
-          {getFieldDecorator('interactions')(
-            <Checkbox.Group>
-              <Row>
-                <Col span={8}><Checkbox value="S">Sexual Activity</Checkbox></Col>
-                <Col span={8}><Checkbox value="D">Disease Exposure</Checkbox></Col>
-                <Col span={8}><Checkbox value="L">Live Stock</Checkbox></Col>
-                <Col span={8}><Checkbox value="T">Travel</Checkbox></Col>
-                <Col span={8}><Checkbox value="O">Others</Checkbox></Col>
-              </Row>
-            </Checkbox.Group>
-          )}
-        </FormItem>
-        <FormItem {...formItemLayout} label="Pregnancy">
-          {getFieldDecorator('pregnancy')(
-            <Switch 
-              defaultChecked={false}
-              checkedChildren={
-                () => (
-                  <div>
-                    <div>
-                      <span>LMP Date</span>
-                      <DatePicker/>
-                    </div>
-                    <div>
-                      <span>Weeks since pregnant</span>
-                      <InputNumber min={1} max={10} defaultValue={1}/>
-                    </div>
-                    <div>
-                      <Checkbox>Breast Feeding</Checkbox>
-                    </div>
-                    <div>
-                      <Checkbox>Contraceptive Use</Checkbox>
-                    </div>
-                    <div>
-                      <span>No. of pregnancy</span>
-                      <InputNumber min={1} max={10} defaultValue={1}/>
-                    </div>
-                    <div>
-                      <span>No. of live birth</span>
-                      <InputNumber min={1} max={10} defaultValue={1}/>
-                    </div>
-                    <div>
-                      <span>No. of miscarriage</span>
-                      <InputNumber min={1} max={10} defaultValue={1}/>
-                    </div>
-                    <div>
-                      <span>No. of abortion</span>
-                      <InputNumber min={1} max={10} defaultValue={1}/>
-                    </div>
-                    <div>
-                      <span>No. of still birth</span>
-                      <InputNumber min={1} max={10} defaultValue={1}/>
-                    </div>
-                    <div>
-                      <span>Remarks:</span>
-                      <TextArea rows={3} />
-                    </div>
-                  </div>
-                )
-              }
-              unCheckedChildren="Not Applicable"
-            />
-          )}
-        </FormItem>
-        <FormItem {...formItemLayout} label="Substance Usage">
-          {getFieldDecorator('substanceUse')(
-            <Checkbox.Group>
-              <Row>
-                <Col span={8}><Checkbox value="alcohol">Alcohol</Checkbox></Col>
-                <Col span={8}><Checkbox value="tobacco">Tobacco</Checkbox></Col>
-                <Col span={8}>
-                  <Checkbox value="others">Others (Please specify)</Checkbox>
-                  <TextArea rows={2} />
-                </Col>
-              </Row>
-            </Checkbox.Group>
-          )}
-        </FormItem>
-      </Form>
+      <div className="em-component-conditionform-container">
+        <div className="em-component-conditionform-field">
+          <span className="em-component-condition-field-label">Allergies</span>
+          <TextArea rows={4} className="em-component-condition-field-entry" placeholder="Enter any known allergies here" className="em-component-condition-field-entry" />
+        </div>
+        <div className="em-component-conditionform-field">
+          <span className="em-component-condition-field-label">Interactions</span>
+          <CheckboxGroup className="em-component-condition-field-entry">
+            <Row>
+              <Col span={8}><Checkbox value="sexual">Sexual</Checkbox></Col>
+              <Col span={8}><Checkbox value="animal">Animal</Checkbox></Col>
+              <Col span={8}><Checkbox value="disease">Diseases</Checkbox></Col>
+            </Row>
+          </CheckboxGroup>
+        </div>
+        <div className="em-component-conditionform-field">
+          <span className="em-component-condition-field-label">Pregnancy</span>
+          <div className="em-component-condition-field-entry">
+            <div className="em-component-condition-pregnancy-wrapper">
+              <Checkbox className="em-component-condition-pregnancy-surveyitem">Not Applicable</Checkbox>
+              <DatePicker style={{padding: 0}} placeholder="LMP Date" className="em-component-condition-pregnancy-surveyitem" />
+              <div className="em-component-condition-pregnancy-surveyitem">
+                <label>Gestation (Weeks)</label>
+                <div style={{marginTop: '8px'}}>
+                  <InputNumber min={1} max={45} defaultValue={1}/>
+                </div>
+              </div>
+              <div className="em-component-condition-pregnancy-surveyitem">
+                <Checkbox>Breast Feeding</Checkbox>
+                <Checkbox>Contraceptive Use</Checkbox>
+              </div>
+              <div className="em-component-condition-pregnancy-surveyitem">
+                {renderedPregnancySurvey}
+              </div>
+              <div className="em-component-condition-pregnancy-surveyitem">
+                <TextArea rows={2} placeholder="Other remarks"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     )
   }
 }
