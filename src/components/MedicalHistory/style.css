@@ -1,0 +1,96 @@
+.em-component-medicalhistory-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 2% 0 2% 8%;
+}
+
+.em-component-medicalhistory-header {
+  max-width: 20%;
+  margin-left: -100px;
+  margin-right: 0;
+  margin-bottom: 15px;
+  color: #fff;
+  box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.2), 0 13px 24px -11px hsla(231, 63%, 55%, 0.6);
+  background: linear-gradient(60deg, hsl(231, 63%, 70%), hsl(231, 64%, 63%));
+  border-radius: 5px;
+  padding: 15px 0;
+  text-align: center;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.25em;
+}
+
+.em-component-medicalhistory-field {
+  width: 70%;
+  margin-left: 12px;
+  margin: 12px 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.em-component-medicalhistory-field-icon.active {
+  background: linear-gradient(60deg, hsl(120, 62%, 70%), hsl(120, 64%, 63%));
+}
+
+.em-component-medicalhistory-field-icon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(60deg, hsl(231, 63%, 70%), hsl(231, 64%, 63%));
+  box-shadow: 0 2px 12px 0px rgba(0, 0, 0, 0.2), 0 13px 24px -11px hsla(231, 63%, 55%, 0.6);
+  border-radius: 50%;
+  position: absolute;
+  left: -24px;
+  top: -17px;
+}
+
+.em-component-medicalhistory-field-icon>img{
+  height: 100%;
+  width: 100%;
+  padding: 20%;
+}
+
+:not(:last-child)>.em-component-medicalhistory-field-label:before {
+  display: inline-block;
+  height: 60px; /* height of field 124 - height of icon 48 - margin between line and icon 8 * 2 */
+  top: 39px; /* height of label 14 / 2 + height of icon 48 / 2 + margin between line and icon 8 */
+  left: -1px; /* half border */
+  border-left: 2px #b3b3b3 solid;
+  content: '';
+  position: absolute;
+}
+
+.em-component-medicalhistory-field-label {
+  text-align: center;
+  flex: 1;
+  padding-left: 32px;
+  position: relative;
+  font-size: 14px;
+  line-height: 1;
+}
+
+input[type=text].em-component-medicalhistory-input, textarea.em-component-medicalhistory-input {
+  flex: 2;
+  height: 100px;
+                                 } /* ^^ specific   vv extractable */ input[type=text].em-component-medicalhistory-input, textarea.em-component-medicalhistory-input {
+  display: block;
+  padding: .5rem;
+  background-color: white;
+  border-radius: .25rem;
+  font-size: 1em;
+  border: 1px solid #e5e5e5;
+  outline: none;
+  transition-property: none;
+  transition-duration: none;
+  padding: 10px 10px;
+  box-shadow: 0 1px 7px rgba(0,0,0,.05);
+  resize: none;
+}
+
+input[type=text].em-component-medicalhistory-input::placeholder, textarea.em-component-medicalhistory-input::placeholder {
+  color: #959DAC;
+}
+
+input[type=text].em-component-medicalhistory-input:focus, textarea.em-component-medicalhistory-input:focus {
+  border-color: #8b98e5;
+}

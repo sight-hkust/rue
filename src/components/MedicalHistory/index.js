@@ -1,54 +1,61 @@
+/*eslint-disable no-unused-vars*/
 import React, { Component } from 'react'
-import { Form, Input } from 'antd'
-const FormItem = Form.Item
-const { TextArea } = Input
+import { Icon } from 'components/Utilities'
+import './style.css'
+/*eslint-enable no-unused-vars*/
 
-class MedicalHistoryForm extends Component {
+const template = [
+  {
+    title: 'Immunization',
+    description: 'Please fill in any previously known record for vaccination / immunization',
+    name: 'immunization'
+  },
+  {
+    title: 'Childhood Diseases',
+    description: 'Please fill in any previously known record for childhood diseases',
+    name: 'childhood'
+  },
+  {
+    title: 'Family Diseases',
+    description: 'Please fill in any known family diseases',
+    name: 'family'
+  },
+  {
+    title: 'Surgeries',
+    description: 'Remarks for previously performed surgical operation, e.g. Angioplasty',
+    name: 'surgery'
+  },
+  {
+    title: 'Past major illness',
+    description: 'Remarks for any major health problems or illness in the past',
+    name: 'majorIllness'
+  }
+]
+
+class MedicalHistory extends Component {
   render() {
-    const { getFieldDecorator } = this.props.form
-    const formItemLayout = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 20 },
-    }
     return (
       <div className="em-component-medicalhistory-container">
-        <Form layout="vertical">
-          <FormItem {...formItemLayout} label="Immunizations">
-            {getFieldDecorator('immunization')(
-              <TextArea rows={4} placeholder="Enter information about previous vaccination."/>
-            )}
-          </FormItem>
-          <FormItem {...formItemLayout} label="Childhood Diseases">
-            {getFieldDecorator('childhoodDiseases')(
-              <TextArea rows={4} placeholder="Enter information about any diseases the patient had during childhood."/>
-            )}
-          </FormItem>
-          <FormItem {...formItemLayout} label="Family Diseases">
-            {getFieldDecorator('familyDiseases')(
-              <TextArea rows={4} placeholder="Enter information about any family diseases that are known to the patient."/>
-            )}
-          </FormItem>          
-          <FormItem {...formItemLayout} label="Past Major Illnesses">
-            {getFieldDecorator('pastMajorIllnesses')(
-              <TextArea rows={4} placeholder="Enter information about any major illness the patient had in the past."/>
-            )}
-          </FormItem>
-          <FormItem {...formItemLayout} label="Drug Record">
-            {getFieldDecorator('drugRecord')(
-              <TextArea rows={4} placeholder="Enter information about drug uses in the past or taking still."/>
-            )}
-          </FormItem>
-          <FormItem {...formItemLayout} label="Surgeries">
-            {getFieldDecorator('surgeries')(
-              <TextArea rows={4} placeholder="Enter information about any past surgeries that the patient had been operated on."/>
-            )}
-          </FormItem>
-        </Form>
+        <header className="em-component-medicalhistory-header">
+          <Icon fa="files-o"/>
+          Medical History
+        </header>
+        { template.map( (ctx) => {
+          let active = false // TODO: this.state.some_value.length > 0
+          return (
+            <div className="em-component-medicalhistory-field">
+              <div className="em-component-medicalhistory-field-label">
+                <div className={`em-component-medicalhistory-field-icon ${active?'active':''}`}><img src={require(`./assets/${ctx.name}.png`)} alt=""/></div>
+                {ctx.title}
+              </div>
+              <textarea className="em-component-medicalhistory-input" name={ctx.name} cols="30" rows="5" placeholder={ctx.description}></textarea>
+            </div>
+          )
+        })}
+
       </div>
     )
   }
 }
-
-const MedicalHistory = Form.create()(MedicalHistoryForm);
 
 export default MedicalHistory
