@@ -6,6 +6,7 @@ import CreateProfileAndRedirect from 'components/CreateProfileAndRedirect'
 import Profile from 'components/Profile'
 import Condition from 'components/Condition'
 import MedicalHistory from 'components/MedicalHistory'
+import VitalsForm from 'components/VitalsForm'
 /*eslint-enable no-unused-vars*/
 
 export default class Triage extends Component {
@@ -15,6 +16,7 @@ export default class Triage extends Component {
         <Route exact path="/dashboard/triage" component={Placeholder} />
         <Route path="/dashboard/triage/condition" component={Condition}/>
         <Route path="/dashboard/triage/medicalhistory" component={MedicalHistory}/>
+        <Route path="/dashboard/triage/vitals" component={VitalsForm}/>
         <Route path="/dashboard/triage/new" component={CreateProfileAndRedirect} />
         <Route path="/dashboard/triage/:id" component={({match})=>{
           return <Profile id={match.params.id}/>

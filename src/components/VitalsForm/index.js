@@ -1,9 +1,9 @@
 
 import React, { PureComponent } from 'react'
-import { Breadcrumb, Button ,Form ,Icon, Input ,InputNumber , Modal ,Select } from 'antd'
+import { Breadcrumb, Button ,Form, Input ,InputNumber , Modal ,Select } from 'antd'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { register } from 'modules/action/auth'
+import { Icon } from 'components/Utilities'
 import './style.css'
 
 const FormItem = Form.Item
@@ -27,44 +27,115 @@ function showSubmit() {
 
 
 class VitalsForm extends PureComponent {
+  constructor(props){
+    super(props)
+    this.state = {
+      vitals: {
+        bloodPressure: '',
+        heartRate: '',
+        respiratoryRate: '',
+        bodyTemperature: '',
+        bloodOxygenSaturation: '',
+        bloodSugar: '',
+        height: '',
+        weight: ''
+      },
+      bmi: null
+    }
+  }
+
+  computeBMI(){
+    this.setState({bmi: this.state.vitals.weight/Math.pow(this.state.vitals.height/100,2)})
+  }
+
+  updateVitalsReading(e){
+    const target = e.target
+    this.setState( ({vitals}) => ({ vitals: { ...vitals, [target.name] : target.value }}))
+  }
+
   render(){
+    const renderInputs = (n) => {
+      if(n == 2){
+        return (<InputNumber style={{flex: 1}}/> / <InputNumber/>)
+      }
+      else {
+        return (<InputNumber style={{flex: 1}}/>)
+      }
+    }
+
+    const template = [
+      {
+        title: 'Blood Pressure',
+        inputCount: 2,
+        unit: 'mmHg'
+      },
+      {
+        title: 'Heart Rate',
+        inputCount: 1,
+        unit: 'bpm'
+      },
+      {
+        title: 'Respiratory Rate',
+        inputCount: 1,
+        unit: 'counts per minute'
+      },
+      {
+        title: 'Body Temperature',
+        inputCount: 1,
+        unit: '℃',
+        options: ['℃', '℉']
+      },
+      {
+        title: 'Blood Oxygen Saturation',
+        inputCount: 1,
+        unit: '%'
+      },
+      {
+        title: 'Blood Sugar',
+        inputCount: 1,
+        unit: 'mmol/L',
+      },
+      {
+        title: 'Weight',
+        inputCount: 1,
+        unit: 'kg'
+      },
+      {
+        title: 'Height',
+        inputCount: 1,
+        unit: 'cm'
+      }
+    ]
+
     return (
       <div className="em-component-vitalsform-container">
         
-        <div className="em-component-vitalsform-header">
-        Vitals
-        </div>
+        <header className="em-component-vitalsform-header">
+          <Icon fa="heartbeat"/>
+          Vitals
+        </header>
 
         <div className="em-component-vitalsform-navigation">
-        <Breadcrumb> 
-          <Breadcrumb.Item href="/dashboard"> <Icon type="home" /> </Breadcrumb.Item>
-          <Breadcrumb.Item href=""> <Icon type="folder-open" /> <span>Patent List</span> </Breadcrumb.Item>
-          <Breadcrumb.Item href=""> <Icon type="user" /> <span>Patent Name</span> </Breadcrumb.Item>
-          <Breadcrumb.Item> <Icon type="file-text" />  <span>Vitals</span> </Breadcrumb.Item>
-        </Breadcrumb>
+          <Breadcrumb> 
+            <Breadcrumb.Item href="/dashboard"> <Icon fa="home" /> </Breadcrumb.Item>
+            <Breadcrumb.Item href=""> <Icon fa="folder-open-o" /> <span>Patent List</span> </Breadcrumb.Item>
+            <Breadcrumb.Item href=""> <Icon fa="user-o" /> <span>Patent Name</span> </Breadcrumb.Item>
+            <Breadcrumb.Item> <Icon fa="file-text" />  <span>Vitals</span> </Breadcrumb.Item>
+          </Breadcrumb>
         </div>
 
         <div className="em-component-vitalsform-body">
-          <Form>
-            <FormItem label="Blood Pressure"> <InputNumber/> / <InputNumber/> mmHg </FormItem>
-            <FormItem label="Heart Rate"> <InputNumber/> beats per min </FormItem>
-            <FormItem label="Respiratory Rate"> <InputNumber/> counts per min </FormItem>
-            <FormItem label="Body Temperature"> 
-              <InputNumber/> 
-              <Select defaultValue="DegreeCelsius" style={{width:100}}>
-                <Option value="DegreeCelsius">℃</Option>
-                <Option value="DegreeFahrenheit">℉</Option>
-              </Select>
-            </FormItem>
-            <FormItem label="Blood Oxygen Saturation"> <InputNumber/> % </FormItem>
-            <FormItem label="Blood Sugar"> <InputNumber/> mmol/L </FormItem>
-            <FormItem label="Weight"> <InputNumber/> kg </FormItem>
-            <FormItem label="Height"> <InputNumber/> cm </FormItem>
-        
-          </Form>
+          
+          { template.map( (ctx) => { return (
+            <div className="em-component-vitalsform-field">
+              <span style={{flex: 1}}>{ctx.title}</span>
+              { renderInputs(ctx.inputCount) }
+              <span style={{flex: 1, marginLeft: '8px'}}>{ctx.unit}</span>
+            </div>
+          ) })}
 
-        <Button>Save</Button>
-        <Button type="primary" onClick={showSubmit}>Submit</Button>
+          <Button>Save</Button>
+          <Button type="primary" onClick={showSubmit}>Submit</Button>
 
         </div>
 

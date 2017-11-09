@@ -2,15 +2,22 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding-left: 20px;
-    padding-bottom: 50px;
+    margin: 2% 0 2% 8%;
 }
 
 .em-component-vitalsform-header{
-    align-self: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    font-size: 25px;
+    max-width: 20%;
+    margin-left: -100px;
+    margin-right: 0;
+    margin-bottom: 15px;
+    color: #fff;
+    box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.2), 0 13px 24px -11px hsla(231, 63%, 55%, 0.6);
+    background: linear-gradient(60deg, hsl(231, 63%, 70%), hsl(231, 64%, 63%));
+    border-radius: 5px;
+    padding: 15px 0;
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.25em;
 }
 
 .em-component-vitalsform-navigation{
@@ -20,5 +27,11 @@
 .em-component-vitalsform-body{
     padding-top: 20px;
     padding-bottom: 20px;
+    width: 75%;
+}
 
+.em-component-vitalsform-field {
+    margin: 2% 0;
+    display: flex;
+    align-items: center;
 }
