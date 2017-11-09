@@ -67,82 +67,90 @@ class VitalsForm extends PureComponent {
       {
         title: 'Blood Pressure',
         inputCount: 2,
-        unit: 'mmHg'
+        unit: 'mmHg',
+        name: 'bloodpressure'
       },
       {
         title: 'Heart Rate',
         inputCount: 1,
-        unit: 'bpm'
+        unit: 'bpm',
+        name: 'heartrate'
       },
       {
         title: 'Respiratory Rate',
         inputCount: 1,
-        unit: 'counts per minute'
+        unit: 'counts per minute',
+        name: 'respiratoryrate'
       },
       {
         title: 'Body Temperature',
         inputCount: 1,
         unit: '℃',
-        options: ['℃', '℉']
+        options: ['℃', '℉'],
+        name: 'bodytemperature'
       },
       {
         title: 'Blood Oxygen Saturation',
         inputCount: 1,
-        unit: '%'
+        unit: '%',
+        name: 'bloodoxygensaturation'
       },
       {
         title: 'Blood Sugar',
         inputCount: 1,
         unit: 'mmol/L',
+        name: 'bloodsugar'
       },
       {
         title: 'Weight',
         inputCount: 1,
-        unit: 'kg'
+        unit: 'kg',
+        name: 'weight'
       },
       {
         title: 'Height',
         inputCount: 1,
-        unit: 'cm'
+        unit: 'cm',
+        name: 'height'
       }
     ]
 
     return (
-      <div className="em-component-vitalsform-container">
-        
-        <header className="em-component-vitalsform-header">
-          <Icon fa="heartbeat"/>
-          Vitals
-        </header>
-
-        <div className="em-component-vitalsform-navigation">
-          <Breadcrumb> 
-            <Breadcrumb.Item href="/dashboard"> <Icon fa="home" /> </Breadcrumb.Item>
-            <Breadcrumb.Item href=""> <Icon fa="folder-open-o" /> <span>Patent List</span> </Breadcrumb.Item>
-            <Breadcrumb.Item href=""> <Icon fa="user-o" /> <span>Patent Name</span> </Breadcrumb.Item>
-            <Breadcrumb.Item> <Icon fa="file-text" />  <span>Vitals</span> </Breadcrumb.Item>
-          </Breadcrumb>
-        </div>
-
-        <div className="em-component-vitalsform-body">
+      <div>
+        <div className="em-component-vitalsform-container">
           
-          { template.map( (ctx) => { return (
-            <div className="em-component-vitalsform-field">
-              <span style={{flex: 1}}>{ctx.title}</span>
-              { renderInputs(ctx.inputCount) }
-              <span style={{flex: 1, marginLeft: '8px'}}>{ctx.unit}</span>
+          <header className="em-component-vitalsform-header">
+            <Icon fa="heartbeat"/>
+            Vitals
+          </header>
+
+          { template.map( (ctx)=> {
+            return(
+              <div className="em-component-vitalsform-field">
+              
+              <div className="em-component-vitalsform-field-label">
+                <div className="em-component-vitalsform-field-icon">
+                <img src={require(`./assets/${ctx.name}.png`)}/>
+                </div>
+                {ctx.title}
+              </div>
+              
+              <div className="em-component-vitalsform-field-input">
+                { renderInputs(ctx.inputCount) }
+                <span style={{flex: 1, marginLeft: '8px'}}>{ctx.unit}</span>
+              </div>
             </div>
-          ) })}
-
-          <Button>Save</Button>
-          <Button type="primary" onClick={showSubmit}>Submit</Button>
-
+            )
+          })}
         </div>
 
-      </div> 
-      
+        <div className="em-component-vitalsform-field-submit">
+            <Button>Save</Button>
+            <Button type="primary" onClick={showSubmit}>Submit</Button>
+        </div>
+
+      </div>
     )
   }
 }
 export default VitalsForm
-
