@@ -1,0 +1,21 @@
+.em-component-placeholder-container {
+  display:flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20%;
+}
+
+.em-component-placeholder-instruction {
+  color: #4b4f47;
+  font-size: 1.4em;
+  font-family: 'Nunito', sans-serif;
+  align-self: center;
+}
+
+.em-component-placeholder-logo {
+  width: 220px;
+  height: 220px;
+  background-image: url('./images/placeholder.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}

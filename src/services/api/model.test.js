@@ -1,82 +1,63 @@
-import { Patient, Profile, Vitals, Condition, MedicalHistory, Case, Medication } from './model'
-import * as moment from 'moment'
+import { Patient, Profile, Vitals, Condition,
+  MedicalHistory, Case, Medication, } from './model'
+import Parse from './parse'
 
-const mock = {}
+const they = it
 
-it('Creates a new profile', async () => {
-  expect.assertions(1)
-  mock.profile = new Profile(
-    'Somewhere on earth',
-    'M',
-    moment('1984-01-08').toDate(),
-    'S',
-    ['John','Doe']
-  )
-  const result = await mock.profile.save()
-  expect(result.id).toBeTruthy()
-  console.log(result.id)
-})
-
-it('Creates a new patient', async () => {
-  expect.assertions(1)
-  mock.patient = new Patient(mock.profile)
-  const result = await mock.patient.save()
-  expect(result.id).toBeTruthy()
-  mock.patientId = result.id
-  console.log(result.id)
-})
-
-it('Creates a new record of patient\'s vitals', async () => {
-  expect.assertions(1)
-  mock.vitals = new Vitals([144, 82], 91, 115, 35, 166, 57, 15, 96)
-  const result = await mock.vitals.save()
-  expect(result.id).toBeTruthy()
-  console.log(result.id)
-})
-
-it('Creates a new record of relevant conditions', async () => {
-  expect.assertions(1)
-  mock.condition = new Condition(
-    
-  )
-  const result = await mock.condition.save()
-  expect(result.id).toBeTruthy()
-  console.log(result.id)
-})
-
-it('Creates a new record of medical history', async () => {
-  expect.assertions(1)
-  mock.medicalHistory = new MedicalHistory(
-    /*
-      TODO: Description of a stub medical history
-    */
-  )
-  const result = await mock.medicalHistory.save()
-  expect(result.id).toBeTruthy()
-  console.log(result.id)
-})
-
-it('Create a new record of medication for a case of a patient', async () => {
-  expect.assertions(1)
-  mock.medication = new Medication(
-    /*
-      TODO: Details of the prescribed medication for the stub case
-    */
-  )
-  const result = await mock.medication.save()
-  expect(result.id).toBeTruthy()
-  console.log(result.id)
-})
-
-it('Create a new record of case file for patient', async () => {
-  expect.assertions(1)
-  mock.case = new Case(
-    /*
-      TODO: Description of a stub case
-    */
-    mock.medication
-  )
-  const result = await mock.case.save()
-  expect(result.id).toBeTruthy()
-  console.log(result.id)
+describe('Models', ()=>{
+  beforeEach(async ()=>{
+    const classes = [Patient, Profile, Vitals, Condition,
+      MedicalHistory, Case, Medication]
+    return Promise.all(classes.map(async (cls)=>{
+      const objs = await cls.query().find()
+      return await Parse.Object.destroyAll(objs)
+    }))
+  })
+  they('are empty', async ()=>{
+    expect.assertions(1)
+    const count = await Patient.query().count()
+    expect(count).toBe(0)
+  })
+  describe('Patient', ()=>{
+    it('can attach stuff', async ()=>{
+      const patient = Patient.create({
+        profile: {},
+        condition: {},
+        medicalHistory: {},
+        entries: {},
+      })
+      patient.attach('hello', 10)
+      patient.attach('bye', 'hi')
+      await expect(patient.save()).resolves.toBeTruthy()
+      const fetchedPatient = (await new Parse.Query(Patient).find())[0]
+      expect(fetchedPatient.entries.hello).toBe(10)
+    })
+  })
+  describe('Vitals', ()=>{
+    it('can compute BMI', ()=>{
+      const height = 200
+      const weight = 50
+      const vitals = Vitals.create({
+        bloodPressure: [80, 120], heartRate: 80, respiratoryRate: 60,
+        bodyTemperature: 37, bloodOxygenSaturation: 100, bloodSuger: 8,
+        weight, height
+      })
+      expect(vitals.computeBMI()).toEqual(12.5)
+    })
+  })
+  describe('Profile', ()=>{
+    it('has nothing special to test', ()=>{})
+  })
+  describe('Condition', ()=>{
+    it('has nothing special to test', ()=>{})
+  })
+  describe('MedicalHistory', ()=>{
+    it('has nothing special to test', ()=>{})
+  })
+  describe('Case', ()=>{
+    it('has nothing special to test', ()=>{})
+  })
+  describe('Medication', ()=>{
+    it('has nothing special to test', ()=>{})
+  })
 })

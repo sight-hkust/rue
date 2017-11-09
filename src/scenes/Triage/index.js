@@ -1,14 +1,25 @@
 /*eslint-disable no-unused-vars*/
 import React, { Component } from 'react'
-import VitalsForm from 'components/VitalsForm'
-import { Redirect } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
+import Placeholder from 'components/Placeholder'
+import CreateProfileAndRedirect from 'components/CreateProfileAndRedirect'
+import Profile from 'components/Profile'
+import Condition from 'components/Condition'
+import MedicalHistory from 'components/MedicalHistory'
 /*eslint-enable no-unused-vars*/
-import { connect } from 'react-redux'
 
 export default class Triage extends Component {
   render () {
-    return (
-      <VitalsForm/>
-    )
+    return <div>
+      <Switch>
+        <Route exact path="/dashboard/triage" component={Placeholder} />
+        <Route path="/dashboard/triage/condition" component={Condition}/>
+        <Route path="/dashboard/triage/medicalhistory" component={MedicalHistory}/>
+        <Route path="/dashboard/triage/new" component={CreateProfileAndRedirect} />
+        <Route path="/dashboard/triage/:id" component={({match})=>{
+          return <Profile id={match.params.id}/>
+        }} />
+      </Switch>
+    </div>
   }
 }

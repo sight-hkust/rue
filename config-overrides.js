@@ -6,7 +6,7 @@ module.exports = function override(config, env) {
   config = rewireLess(config, env, {
     modifyVars: { 
       '@primary-color': '#6678DD',
-      '@font-family': 'Open Sans',
+      '@font-family': ['Work Sans', 'sans-serif'],
       '@background-color-base': '#F1F5F9',
       '@layout-body-background': '#F1F5F9'
     },
