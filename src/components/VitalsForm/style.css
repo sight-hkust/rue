@@ -1,0 +1,24 @@
+.em-component-vitalsform-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-left: 20px;
+    padding-bottom: 50px;
+}
+
+.em-component-vitalsform-header{
+    align-self: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 25px;
+}
+
+.em-component-vitalsform-navigation{
+    align-self: flex-start;
+}
+
+.em-component-vitalsform-body{
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+}
