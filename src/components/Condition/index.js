@@ -1,28 +1,32 @@
 import React, { Component } from 'react'
-import { Checkbox, DatePicker, Switch, Col, Row, Input, InputNumber } from 'antd'
+import { Icon } from 'components/Utilities'
+import { Checkbox, DatePicker, Col, Row, InputNumber } from 'antd'
 import './style.css'
 const CheckboxGroup = Checkbox.Group
-const TextArea = Input.TextArea
 
 class Condition extends Component {
   render() {
     const conditionPregnancySurveyitemInputNumberProps = {
-      min: 1, max: 10, defaultValue: 1,
+      min: 0, max: 10, defaultValue: 0,
       style: { }
     }
 
     const pregnancySurveyQuestionItems = ['pregnancy', 'live birth', 'miscarriage', 'abortion', 'still birth']
     const renderedPregnancySurvey = pregnancySurveyQuestionItems.map((item) => (
-      <div>
-        <span>No. of {item}</span>
-        <InputNumber {...conditionPregnancySurveyitemInputNumberProps}/>
+      <div style={{display: 'flex', marginBottom: '8px', alignItems: 'center'}}>
+        <span style={{flex: 2}}>No. of {item}</span>
+        <InputNumber style={{flex:1}} {...conditionPregnancySurveyitemInputNumberProps}/>
       </div>
     ) )
     return (
       <div className="em-component-conditionform-container">
+        <header className="em-component-conditionform-header">
+          <Icon fa="tasks"/>
+          Medical Condition
+        </header>
         <div className="em-component-conditionform-field">
           <span className="em-component-condition-field-label">Allergies</span>
-          <TextArea rows={4} className="em-component-condition-field-entry" placeholder="Enter any known allergies here" className="em-component-condition-field-entry" />
+          <textarea className="em-component-condition-field-input" placeholder="Enter any known allergies here"></textarea>
         </div>
         <div className="em-component-conditionform-field">
           <span className="em-component-condition-field-label">Interactions</span>
@@ -43,7 +47,7 @@ class Condition extends Component {
               <div className="em-component-condition-pregnancy-surveyitem">
                 <label>Gestation (Weeks)</label>
                 <div style={{marginTop: '8px'}}>
-                  <InputNumber min={1} max={45} defaultValue={1}/>
+                  <InputNumber min={0} max={45} defaultValue={0}/>
                 </div>
               </div>
               <div className="em-component-condition-pregnancy-surveyitem">
@@ -54,7 +58,7 @@ class Condition extends Component {
                 {renderedPregnancySurvey}
               </div>
               <div className="em-component-condition-pregnancy-surveyitem">
-                <TextArea rows={2} placeholder="Other remarks"/>
+                <textarea className="em-component-condition-field-input" placeholder="Other remarks"></textarea>
               </div>
             </div>
           </div>
