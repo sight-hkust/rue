@@ -1,0 +1,96 @@
+.em-component-vitalsform-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 2% 0 2% 8%;
+}
+
+.em-component-vitalsform-header{
+    max-width: 20%;
+    margin-left: -100px;
+    margin-right: 0;
+    margin-bottom: 15px;
+    color: #fff;
+    box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.2), 0 13px 24px -11px hsla(231, 63%, 55%, 0.6);
+    background: linear-gradient(60deg, hsl(231, 63%, 70%), hsl(231, 64%, 63%));
+    border-radius: 5px;
+    padding: 15px 0;
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.25em;
+}
+
+.em-component-vitalsform-navigation{
+    align-self: flex-start;
+}
+
+.em-component-vitalsform-body{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 75%;
+}
+
+
+.em-component-vitalsform-field {
+    width: 70%;
+    height: 75px;
+    margin-left: 12px;
+    margin: 12px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .em-component-vitalsform-field-icon.active {
+    background: linear-gradient(60deg, hsl(120, 62%, 70%), hsl(120, 64%, 63%));
+  }
+  
+  .em-component-vitalsform-field-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(60deg, hsl(231, 63%, 70%), hsl(231, 64%, 63%));
+    box-shadow: 0 2px 12px 0px rgba(0, 0, 0, 0.2), 0 13px 24px -11px hsla(231, 63%, 55%, 0.6);
+    border-radius: 50%;
+    position: absolute;
+    left: -24px;
+    top: -17px;
+  }
+  
+  .em-component-vitalsform-field-icon>img{
+    height: 100%;
+    width: 100%;
+    padding: 20%;
+  }
+  
+  :not(:last-child)>.em-component-vitalsform-field-label:before {
+    display: inline-block;
+    height: 60px; /* height of field 124 - height of icon 48 - margin between line and icon 8 * 2 */
+    top: 39px; /* height of label 14 / 2 + height of icon 48 / 2 + margin between line and icon 8 */
+    left: -1px; /* half border */
+    border-left: 2px #b3b3b3 solid;
+    content: '';
+    position: absolute;
+  }
+  
+  .em-component-vitalsform-field-label {
+    text-align: center;
+    flex: 1;
+    padding-left: 32px;
+    position: relative;
+    font-size: 14px;
+    line-height: 1;
+  }
+  
+  .em-component-vitalsform-field-input{
+    flex: 2;
+    height: '100px';
+    display: 'flex';
+    flexDirection:'column';
+    justifyContent: 'center';
+  }
+
+  .em-component-vitalsform-field-submit{
+    display: flex;
+    justify-content: center;
+    margin: 2% 0 2% 8%;
+  }
