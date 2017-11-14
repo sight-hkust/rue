@@ -1,30 +1,10 @@
 
 import React, { PureComponent } from 'react'
-import { Breadcrumb, Button ,Form, Input ,InputNumber , Modal ,Select } from 'antd'
+import { InputNumber, Tag } from 'antd'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Icon } from 'components/Utilities'
 import './style.css'
-
-const FormItem = Form.Item
-const Option = Select.Option
-
-const confirm = Modal.confirm;
-
-function showSubmit() {
-  confirm({
-    title: 'Are you sure submit this task?',
-    okText: 'Yes',
-    cancelText: 'No',
-    onOk() {
-      console.log('OK');
-    },
-    onCancel() {
-      console.log('Cancel');
-    },
-  });
-}
-
 
 class VitalsForm extends PureComponent {
   constructor(props){
@@ -55,8 +35,8 @@ class VitalsForm extends PureComponent {
 
   render(){
     const renderInputs = (n) => {
-      if(n == 2){
-        return (<InputNumber style={{flex: 1}}/> / <InputNumber/>)
+      if(n === 2){
+        return (<span><InputNumber style={{flex: 1}}/> / <InputNumber/></span>)
       }
       else {
         return (<InputNumber style={{flex: 1}}/>)
@@ -68,38 +48,37 @@ class VitalsForm extends PureComponent {
         title: 'Blood Pressure',
         inputCount: 2,
         unit: 'mmHg',
-        name: 'bloodpressure'
+        name: 'bloodPressure'
       },
       {
         title: 'Heart Rate',
         inputCount: 1,
         unit: 'bpm',
-        name: 'heartrate'
+        name: 'heartRate'
       },
       {
         title: 'Respiratory Rate',
         inputCount: 1,
         unit: 'counts per minute',
-        name: 'respiratoryrate'
+        name: 'respiratoryRate'
       },
       {
         title: 'Body Temperature',
         inputCount: 1,
         unit: '℃',
-        options: ['℃', '℉'],
-        name: 'bodytemperature'
+        name: 'bodyTemperature'
       },
       {
         title: 'Blood Oxygen Saturation',
         inputCount: 1,
         unit: '%',
-        name: 'bloodoxygensaturation'
+        name: 'bloodOxygenSaturation'
       },
       {
         title: 'Blood Sugar',
         inputCount: 1,
         unit: 'mmol/L',
-        name: 'bloodsugar'
+        name: 'bloodSugar'
       },
       {
         title: 'Weight',
@@ -128,27 +107,21 @@ class VitalsForm extends PureComponent {
             return(
               <div className="em-component-vitalsform-field">
               
-              <div className="em-component-vitalsform-field-label">
-                <div className="em-component-vitalsform-field-icon">
-                <img src={require(`./assets/${ctx.name}.png`)}/>
+                <div className="em-component-vitalsform-field-label">
+                  <div className="em-component-vitalsform-field-icon">
+                    <img src={require(`./assets/${ctx.name}.png`)} alt=""/>
+                  </div>
+                  {ctx.title}
                 </div>
-                {ctx.title}
-              </div>
               
-              <div className="em-component-vitalsform-field-input">
-                { renderInputs(ctx.inputCount) }
-                <span style={{flex: 1, marginLeft: '8px'}}>{ctx.unit}</span>
+                <div className="em-component-vitalsform-field-input">
+                  { renderInputs(ctx.inputCount) }
+                  <Tag style={{flex: 1, marginLeft: '8px'}}><strong>{ctx.unit}</strong></Tag>
+                </div>
               </div>
-            </div>
             )
           })}
         </div>
-
-        <div className="em-component-vitalsform-field-submit">
-            <Button>Save</Button>
-            <Button type="primary" onClick={showSubmit}>Submit</Button>
-        </div>
-
       </div>
     )
   }
