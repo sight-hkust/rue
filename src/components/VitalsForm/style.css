@@ -1,8 +1,11 @@
 .em-component-vitalsform-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  margin: 2% 0 2% 8%;
+  flex: 8;
+  box-shadow: 0 7px 14px 0 rgba(50, 50, 93, .1), 0 3px 6px 0 rgba(0, 0, 0, .07);
+  background-color: white;
+  border-radius: 0.25rem;
+  align-items: center;
+  height: auto;
+  margin: 15px;
 }
 
 .em-component-vitalsform-header{

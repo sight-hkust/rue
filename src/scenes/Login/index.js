@@ -9,13 +9,13 @@ import './style.css'
 
 class Login extends Component {
   render(){
-    const { token } = this.props
+    const {token} = this.props
     if(token){
       return <Redirect to="/" />
     }
     return (
       <div className="em-page-login-container">
-        <LoginForm />
+        <LoginForm/>
       </div>
     )
   }

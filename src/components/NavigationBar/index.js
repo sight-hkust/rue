@@ -29,8 +29,8 @@ const navigations = [
   }
 ]
 
-const links = navigations.map( (item) => {
-  return <div className="em-component-navitem"><NavLink activeClassName="em-component-navitem-active" to={item.path}><Icon fa={item.icon}/>{item.name}</NavLink></div>
+const links = navigations.map( (item, i) => {
+  return <div key={i} className="em-component-navitem"><NavLink activeClassName="em-component-navitem-active" to={item.path}><Icon fa={item.icon}/>{item.name}</NavLink></div>
 })
 
 class NavigationBar extends Component {

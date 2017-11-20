@@ -49,6 +49,10 @@
     transition: background-color 0.3s;
 }
 
+.em-component-loginform-input-field > input::placeholder {
+    color: #AFAFAF;
+}
+
 .em-component-loginform-input-field > label,
 .em-component-loginform-input-field > input[type='text'],
 .em-component-loginform-input-field > input[type='password'] {
@@ -74,7 +78,6 @@
 .em-component-loginform-input-field > input[type='password'],
 .em-component-loginform-input-field > input[type='text'] {
     color: #606468;
-    width: 14rem;
     background-color: #f6f8fa;
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;

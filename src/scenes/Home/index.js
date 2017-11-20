@@ -1,34 +1,63 @@
 /*eslint-disable no-unused-vars*/
 import React, { Component } from 'react'
-import { Layout } from 'antd'
 import NavigationBar from 'components/NavigationBar'
-import { Route } from 'react-router-dom'
+import { Route, withRouter } from 'react-router-dom'
 import Triage from 'scenes/Triage'
 import './style.css'
-const { Header, Content, Footer } = Layout
 /*eslint-enable no-unused-vars*/
+
+const SectionMultiplexer = () => {
+  const destinations = [
+    {
+      id: 'triage',
+      description: 'Create and update patient\'s data such as personal information, medical history and condition.',
+    },
+    {
+      id: 'consultation',
+      description: 'Examine and diagnose patient, giving advice and prescribe medication, make next appointment.',
+    },
+    {
+      id: 'pharmacy',
+      description: 'Manages patient medication records and perform drug dispensing operations.'
+    }
+  ]
+
+  return (
+    <div className="em-component-sectionmultiplexer-container">
+      { destinations.map( (d) => (
+        <Route render={({ history }) => (
+          <div className="em-component-sectionmultiplexer" onClick={() => { history.push(`/dashboard/${d.id}`) }}>
+            <div className="em-component-sectionmultiplexer-header">
+              <img className="em-component-sectionmultiplexer-logo" src={require(`./assets/${d.id}.svg`)} alt=""/>
+            </div>
+            <h3 className="em-component-sectionmultiplexer-title">{d.id}</h3>
+            <p className="em-component-sectionmultiplexer-description">{d.description}</p>
+          </div>
+        )}/>
+      ))}
+    </div>
+  )
+}
+
+const Footer = () => {
+  return (
+    <div className="em-page-home-footer">
+      SIGHT ©2017 Hong Kong University of Science and Technology
+    </div>
+  )
+}
 
 class Home extends Component {
   render(){
     return (
-      <Layout>
+      <div className="em-page-home-container">
         <NavigationBar/>
-        <Content style={{ margin: '24px 16px 0', overflow: 'initial', display:'flex' }}>
-          <div className="em-demo-edit-fields">
-            <Route path="/dashboard/triage" component={Triage}/>
-          </div>
-          <div className="em-demo-queue">
-            <section>
-              <center style={{marginTop: '20%'}}>
-                <h2>Patient Queue</h2>
-              </center>
-            </section>
-          </div>
-        </Content>
-        <Footer style={{ textAlign: 'center' }}>
-        SIGHT ©2017 Hong Kong University of Science and Technology
-        </Footer>
-      </Layout>
+        <div className="em-page-home-content">
+          <Route exact path="/dashboard" component={SectionMultiplexer}/>
+          <Route path="/dashboard/triage" component={Triage}/>
+        </div>
+        <Footer/>
+      </div>
     )
   }
 }
