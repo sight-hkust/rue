@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Icon } from 'components/Utilities'
+import { Icon } from 'components/UIKit'
 import { Checkbox, DatePicker, Col, Row, InputNumber } from 'antd'
 import './style.css'
 const CheckboxGroup = Checkbox.Group

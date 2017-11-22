@@ -1,11 +1,10 @@
-/*eslint-disable no-unused-vars*/
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
-import { Icon, Avatar } from 'components/Utilities'
+import { Icon, Avatar } from 'components/UIKit'
 import { Layout } from 'antd'
 import './style.css'
 const { Header } = Layout
-/*eslint-disable no-unused-vars*/
+
 const navigations = [
   {
     name: 'Triage',
