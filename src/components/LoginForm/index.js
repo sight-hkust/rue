@@ -1,11 +1,9 @@
-/*eslint-disable no-unused-vars*/
 import React, { Component } from 'react'
-import { Button } from 'antd'
-/*eslint-enable no-unused-vars*/
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { logIn } from 'modules/action/auth'
-import './style.css'
+import { Container, Submit, TextField, Form, Header } from './fragments'
+
 
 class LoginForm extends Component {
   constructor(props){
@@ -29,28 +27,26 @@ class LoginForm extends Component {
   }
 
   render(){
+
     return (
-      <div className="em-component-loginform-wrapper">
-        <div className="em-component-loginform-header">
-        </div>
-        <div className="em-component-loginform-input-fields">
-          <div className="em-component-loginform-input-field">
+      <Container>
+        <Header/>
+        <Form>
+          <TextField>
             <label htmlFor="username">
               <i className="fa fa-user"></i>
             </label>
             <input id="username" type="text" placeholder="Username" value={this.state.username} onChange={this.updateLoginFormState}/>
-          </div>
-          <div className="em-component-loginform-input-field">
+          </TextField>
+          <TextField>
             <label htmlFor="password">
               <i className="fa fa-lock"></i>
             </label>
             <input id="password" type="password" placeholder="Password" value={this.state.password} onChange={this.updateLoginFormState}/>
-          </div>
-        </div>
-        <div className="em-component-loginform-submit-button">
-          <Button className="em-component-loginform-loginbutton" type="primary" onClick={this.onSubmit}>LOG IN</Button>
-        </div>
-      </div>
+          </TextField>
+        </Form>
+        <Submit onClick={this.onSubmit}/>
+      </Container>
     )
   }
 }

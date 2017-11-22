@@ -1,0 +1,77 @@
+.em-component-conditionform-container{
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  justify-content: flex-start;
+  margin: 2% 0 2% 8%;
+}
+
+.em-component-conditionform-header {
+  max-width: 20%;
+  margin-left: -100px;
+  margin-right: 0;
+  margin-bottom: 15px;
+  color: #fff;
+  box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.2), 0 13px 24px -11px hsla(231, 63%, 55%, 0.6);
+  background: linear-gradient(60deg, hsl(231, 63%, 70%), hsl(231, 64%, 63%));
+  border-radius: 5px;
+  padding: 15px 0;
+  text-align: center;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.25em;
+}
+
+.em-component-conditionform-field {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin: 2% 0;
+  width: 65%;
+}
+
+.em-component-condition-field-label {
+  flex: 1;
+}
+
+.em-component-condition-field-entry {
+  flex: 3;
+  align-items: flex-start;
+}
+
+textarea.em-component-condition-field-input {
+  flex: 3;
+  height: 100px;
+  display: block;
+  padding: .5rem;
+  background-color: white;
+  border-radius: .25rem;
+  font-size: 1em;
+  border: 1px solid #e5e5e5;
+  outline: none;
+  transition-property: none;
+  transition-duration: none;
+  padding: 10px 10px;
+  box-shadow: 0 1px 7px rgba(0,0,0,.05);
+  resize: none;
+}
+
+textarea.em-component-condition-field-input::placeholder {
+  color: #959DAC;
+}
+
+textarea.em-component-condition-field-input:focus {
+  border-color: #8b98e5;
+}
+
+.em-component-condition-pregnancy-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: auto;
+}
+
+.em-component-condition-pregnancy-surveyitem {
+  margin-bottom: 1.5rem;
+  width: 50%;
+}

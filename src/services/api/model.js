@@ -84,8 +84,7 @@ const Condition = makeClass({
   'fields': [
     'pregnancy',
     'allergies',
-    'tobaccoUse',
-    'alcoholUse',
+    'substanceUse',
     'interactions',
   ],
 })

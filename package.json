@@ -8,17 +8,18 @@
     "history": "^4.7.2",
     "moment": "^2.18.1",
     "parse": "^1.10.0",
-    "react": "^15.6.1",
+    "react": "^16.0.0",
     "react-app-rewire-less": "^2.0.5",
     "react-app-rewired": "^1.2.2",
-    "react-dom": "^15.6.1",
+    "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.6",
     "react-scripts": "1.0.11",
     "redux": "^3.7.2",
-    "redux-saga": "^0.15.6"
+    "redux-saga": "^0.15.6",
+    "styled-components": "^2.2.3"
   },
   "scripts": {
     "start": "NODE_PATH=src/ react-app-rewired start",
@@ -30,6 +31,7 @@
     "babel-preset-react-app": "^3.0.2",
     "cross-env": "^5.1.0",
     "eslint": "^4.7.0",
-    "eslint-plugin-react": "^7.3.0"
+    "eslint-plugin-react": "^7.3.0",
+    "eslint-plugin-styled-components-config": "^0.0.2"
   }
 }

@@ -1,7 +1,9 @@
 import Parse from './parse'
+import { constructErrorFromParseError } from 'services/api/utils/error'
 
 export const SUCCESS = Symbol('SUCCESS')
 export const FAILURE = Symbol('FAILURE')
+
 /*
   authenticate the user using username and password
   async/await is a new pattern adopted in ES2016,
@@ -14,9 +16,7 @@ async function authenticate(username, password){
     const user =  await Parse.User.logIn(username, password)
     return { status: user.authenticated()? SUCCESS:FAILURE, session: user.getSessionToken() }
   } catch (error) {
-    if(error.errors){
-      throw { status: FAILURE, message: error.errors.map( e => e.message ) || error.message }
-    }
+    throw constructErrorFromParseError(error)
   }
 }
 
@@ -25,7 +25,7 @@ async function authenticateUsing(token){
     const user = await Parse.User.become(token)
     return { status: user.authenticated()? SUCCESS:FAILURE, session: user.getSessionToken() }
   } catch (error) {
-    throw { status: FAILURE, message: error.errors.map( e => e.message ) || error.message }
+    throw constructErrorFromParseError(error)
   }
 }
 
@@ -35,11 +35,11 @@ async function deauthenticate(){
       await Parse.User.logOut()
       return { status: SUCCESS }
     } catch (error) {
-      throw { status: FAILURE, message: error.errors.map( e => e.message ) || error.message }
+      throw constructErrorFromParseError(error)
     }
   }
   else {
-    throw { status: FAILURE, message: 'User has not been authenticated' }
+    throw new Error('User has not been authenticated')
   }
 }
 
@@ -55,10 +55,10 @@ async function register(credentials, token){
       await user.signUp()
       return { status: user.authenticated()? SUCCESS:FAILURE, session: user.getSessionToken() }
     } catch (error) {
-      throw { status: FAILURE, message: error.errors.map( e => e.message ) || error.message }
+      throw constructErrorFromParseError(error)
     }
   }
-  throw { status: FAILURE, message: 'Invalid Registration Authorization Token' }
+  throw new Error('Invalid Registration Authorization Token')
 }
 
 export { authenticate, authenticateUsing, deauthenticate, register }

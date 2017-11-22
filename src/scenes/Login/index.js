@@ -1,22 +1,30 @@
-/*eslint-disable no-unused-vars*/
 import React, { Component } from 'react'
 import LoginForm from 'components/LoginForm'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-/*eslint-enable no-unused-vars*/
-import './style.css'
+import styled from 'styled-components'
 
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-image: url(${require('./images/login_bg.png')});
+  background-size: cover;
+`
 
 class Login extends Component {
   render(){
-    const { token } = this.props
+    const {token} = this.props
     if(token){
       return <Redirect to="/" />
     }
     return (
-      <div className="em-page-login-container">
-        <LoginForm />
-      </div>
+      <Container>
+        <LoginForm/>
+      </Container>
     )
   }
 }
