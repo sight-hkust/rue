@@ -1,24 +1,25 @@
 import React, { Component } from 'react'
-import { Card, Icon, Input, Layout } from 'antd'
+import { Card, Icon, Input } from 'antd'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { queryPatientProfile } from 'modules/action/patient'
-import './style.css'
+import { fetchPatientList } from 'modules/action/list'
+import styled from 'styled-components'
+
+const Layout = styled.div`
+  box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+  margin: 15px;
+  border-radius: 0.25rem;
+  height: 85vh;
+  background-color: white;
+`
+
 
 class PatientListSideBar extends Component {
-
   constructor(props) {
-    super(props);
-    this.state = {
-      name: ''
-    }
-    this.queryPatientProfile = props.actions.queryPatientProfile.bind(this)
+    super(props)
+    this.state = {}
     this.updatePatientListSideBarState = this.updatePatientListSideBarState.bind(this)
-    this.onSearch = this.onSearch.bind(this)
-
-    const patients_db = [{id: "123", name: "kris", age: "20"}, {id: "222", name: "malinda", age: "25"}, {id: "321", name: "christine", age: "33"}, {id: "901", name: "rick", age: "62"}, {id: "109", name: "morty", age: "13"}, {id: "333", name: "finn", age: "8"}, {id: "541", name: "jake", age: "44"}];
-    const patients_in_list = [{id: "123", name: "kris", age: "20"}, {id: "222", name: "malinda", age: "25"}, {id: "321", name: "christine", age: "33"}]
-    this.state = {patients_in_list}
+    this.search = this.search.bind(this)
   }
 
 
@@ -26,101 +27,45 @@ class PatientListSideBar extends Component {
     this.setState({ searchpatientdb: e.target.value })
   }
 
-  onSearch() {
-    const { name } = this.state
-    this.queryPatientProfile(name)
+  search() {
+    console.log('test')
   }
 
 
   render(){
-    const Search = Input.Search;
-
-    <Search
-    placeholder="input search text"
-    style={{ width: 200 }}
-    onSearch={value => console.log(value)}
-  />
-    // const { Content } = Layout
-    
-    // function onSelect(value) {
-    //   console.log('onSelect', value);
-    // }
-    
-    // class PatientSearch extends React.Component {
-    //   state = {
-    //     patients_in_list: this.state.patients_in_list.slice(), // this searches for patients already in the list
-    //   }
-    
-    //   handleSearch = (value) => {
-    //     this.setState({
-    //       patients_in_list: !value ? [] : [
-    //         value,
-    //         value + value,
-    //         value + value + value,
-    //       ],
-    //     });
-    //   }
-    
-      // render() {
-      //   const { patients_in_list } = this.state;
-      //   return (
-      //     <AutoComplete
-      //       patients_in_list={patients_in_list}
-      //       style={{ width: 200 }}
-      //       onSelect={onSelect}
-      //       onSearch={this.handleSearch}
-      //       filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
-      //       placeholder="Search for name in patient queue"
-      //     >
-      //     <Input suffix={<Icon type="search" className="certain-category-icon" />} />
-      //     </AutoComplete>
-          
-      //   );
-      // }
-
+    const { patients } = this.props
+    const { fetchPatientList } = this.props.actions
+    console.log(patients)
     return (
-      <div className="em-demo-queue">
-        <section>
-        
-        <center style={{marginTop: '20%'}}>
-          <h2>Patient Queue</h2>
-        </center>
-
+      <Layout>
+        <button onClick={fetchPatientList}>refresh</button>
         <center style={{marginTop: '5%'}}>
-        <div class="patient-search">
-        <Search />
+          <div className="patient-search">
+            <input type="text" onChange={this.search}/>
+          </div>
+        </center>
+        <div>
+          { patients.map( (p, i) => {
+            return (
+              <div key={i}>
+                <span>{p.name}</span>
+                <span>{p.age}</span>
+                <span>{p.id}</span>
+              </div>
+            )
+          } ) }
         </div>
-        </center>
-
-        <center style={{marginTop: '5%'}}>
-        <div class="patient-list">
-        <Card title="Add Returning Patient" style={{ width: 300 }}>
-            <p>Click on this card to add new patient from existing patients database</p>
-          </Card>
-        </div>
-        </center>
-
-        
-        <div class="patient-list">
-          <center style={{marginTop: '5%'}}>
-          <Card key={this.state.patients_in_list.id} title={this.state.patients_in_list.name} style={{ width: 300 }}>
-          <p>Age: {this.state.patients_in_list.age}</p>
-        </Card>
-        </center>
-        </div>
-
-        <center style={{marginTop: '5%'}}>
-        </center>
-
-      </section>
-    </div>
+      </Layout>
     )
-    }
-
   }
+}
 
-  const mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators({ queryPatientProfile }, dispatch)
-  })
-  
-  export default connect(null,mapDispatchToProps)(PatientListSideBar)
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators({ fetchPatientList }, dispatch)
+})
+
+const mapStateToProps = (state) => ({
+  patients: state.list.patients
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(PatientListSideBar)
