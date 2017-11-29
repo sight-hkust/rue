@@ -48,18 +48,20 @@ padding: 12px;
 `
 
 const Title = styled.h3`
-font-weight: 500;
-font-size: 20px;
-font-family: 'Open Sans', sans-serif;
-letter-spacing: 1px;
-font-variant: small-caps;
-text-transform: capitalize;
+  font-weight: 500;
+  font-size: 20px;
+  font-family: 'Quicksand', sans-serif;
+  letter-spacing: 1px;
+  font-variant: small-caps;
+  text-transform: capitalize;
+  color: #333D4C;
 `
 
 const Description = styled.p`
-color: #8994c6;
-font-size: 14px;
-text-align: center;
+  color: #8994c6;
+  font-size: 15px;
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
 `
 const SectionMultiplexer = () => {
   const destinations = [
@@ -69,7 +71,7 @@ const SectionMultiplexer = () => {
     },
     {
       id: 'consultation',
-      description: 'Examine and diagnose patient, giving advice and prescribe medication, make next appointment.',
+      description: 'Examine and diagnose patient, giving prognosis and prescribe medication, make next appointment.',
     },
     {
       id: 'pharmacy',
@@ -109,9 +111,11 @@ margin: 24px 16px 0;
 display: flex;
 `
 
-const Footer = styled.section`
-margin: 1% 0;
-text-align: center;
+const Footer = styled.footer`
+  margin: 1% 0;
+  text-align: center;
+  font-family: 'Quicksand', sans-serif;
+  letter-spacing: 2px;
 `
 
 export { Container, Content, Footer, SectionMultiplexer, }

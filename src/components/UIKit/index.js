@@ -1,9 +1,16 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled, {css} from 'styled-components'
 
 const PrototypeIcon = ({className, name, color}) => (
   <i className={`fa fa-${name} ${className}`} style={{}}></i>
 )
+
+PrototypeIcon.propTypes = {
+  className: PropTypes.string,
+  name: PropTypes.string,
+  color: PropTypes.string
+}
 
 const Icon = styled(PrototypeIcon)`
   margin-right: 8px;
@@ -27,6 +34,12 @@ const PrototypeHeader = ({className, icon, title}) => (
   </div>
 )
 
+PrototypeHeader.propTypes = {
+  className: PropTypes.string,
+  icon: PropTypes.string,
+  title: PropTypes.string
+}
+
 const Header = styled(PrototypeHeader)`
   max-width: 20%;
   margin-left: -100px;
@@ -43,21 +56,12 @@ const Header = styled(PrototypeHeader)`
 `
 
 const PrototypeButton = ({className, title}) => {
-  // let { className, title, onClick } = props
-  // let timeout = null
-  // const classes = className.split()
-  // const lastClass = classes[classes.length - 1]
-  // function unsetClicked(){
-  //   if(timeout != null) clearTimeout(timeout)
-  //   props.clicked = false
-  //   timeout = null
-  // }
-  // function setClicked(){
-  //   if(timeout != null) clearTimeout(timeout)
-  //   props.clicked = true
-  //   timeout = setTimeout(unsetClicked, 500)
-  // }
   return <button {...{className}}>{title}</button>
+}
+
+PrototypeButton.propTypes = {
+  className: PropTypes.string,
+  title: PropTypes.string
 }
 
 const Button = styled(PrototypeButton)`
@@ -66,19 +70,21 @@ const Button = styled(PrototypeButton)`
   height: 40px;
   line-height: 40px;
   letter-spacing: 2px;
-  padding: 0 14px;
+  padding: 0 18px;
   box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
   background: ${({color}) => color ? color : '#fff'};
   border-radius: 0.25rem;
   border: none;
   font-size: 15px;
-  font-weight: 600;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: .025em;
   color: #6772e5;
   text-decoration: none;
   transition: all .15s ease;
   cursor: pointer;
+  user-select: none;
 
   &:hover {
     transform: translateY(-1px);

@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
+// import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { logIn } from 'modules/action/auth'
-import { Container, Submit, TextField, Form, Header } from './fragments'
+import { Container, Submit, Form, Header } from './fragments'
 
 
 class LoginForm extends Component {
@@ -18,7 +19,7 @@ class LoginForm extends Component {
   }
 
   updateLoginFormState(e){
-    this.setState({ [e.target.id]: e.target.value })
+    this.setState({ [e.target.name]: e.target.value })
   }
 
   onSubmit(){
@@ -31,20 +32,7 @@ class LoginForm extends Component {
     return (
       <Container>
         <Header/>
-        <Form>
-          <TextField>
-            <label htmlFor="username">
-              <i className="fa fa-user"></i>
-            </label>
-            <input id="username" type="text" placeholder="Username" value={this.state.username} onChange={this.updateLoginFormState}/>
-          </TextField>
-          <TextField>
-            <label htmlFor="password">
-              <i className="fa fa-lock"></i>
-            </label>
-            <input id="password" type="password" placeholder="Password" value={this.state.password} onChange={this.updateLoginFormState}/>
-          </TextField>
-        </Form>
+        <Form value={this.state} onChange={this.updateLoginFormState}/>
         <Submit onClick={this.onSubmit}/>
       </Container>
     )

@@ -1,6 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Button } from 'components/UIKit'
+import PropTypes from 'prop-types'
+
+const templates = [
+  { id: 'username', icon: 'user', type: 'text' },
+  { id: 'password', icon: 'lock', type: 'password'}
+]
 
 const Container = styled.div`
 display: flex;
@@ -10,6 +16,7 @@ border-radius: .25rem;
 border: 1px solid rgba(0,0,0,.04)!important;
 position: absolute;
 padding: 15px 15px;
+min-width: 380px;
 width: 25%;
 height: 45%;
 background-color: white;
@@ -24,17 +31,28 @@ width: 100px;
 height: 100px;
 `
 
-const Form = styled.div`
-align-self: center;
-display: flex;
-margin: 0;
-flex-direction: column;
-justify-content: space-around;
-`
+const PrototypeTextField = ({className, icon, id, value, type, onChange}) => (
+  <div className={className}>
+    <label htmlFor={id}>
+      <i className={`fa fa-${icon}`}></i>
+    </label>
+    <input type={type} name={id} placeholder={id} />
+  </div>
+)
 
-const TextField = styled.div`
+PrototypeTextField.propTypes = {
+  className: PropTypes.string,
+  icon: PropTypes.string,
+  id: PropTypes.string,
+  value: PropTypes.string,
+  type: PropTypes.string,
+  onChange:  PropTypes.func
+}
+
+const TextField = styled(PrototypeTextField)`
 display: flex;
-margin: 0.875em 0;
+margin: 16px 0;
+min-width: 75%;
 
 > input {
   background-image: none;
@@ -44,11 +62,16 @@ margin: 0.875em 0;
   margin: 0;
   outline: 0;
   padding: 0;
+  width: 100%;
   transition: background-color 0.3s;
 }
 
 > input::placeholder {
   color: #AFAFAF;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 500;
 }
 
 > input[type='text'], input[type='password'], label {
@@ -79,15 +102,39 @@ margin: 0.875em 0;
 } 
 
 `
+const PrototypeForm = ({className, value, onChange}) => {
+  return (
+    <div className={className}>
+      { templates.map( (field, i) => (
+        <TextField key={i} id={field.id} icon={field.icon} type={field.type} value={value[field.id]} onChange={onChange} />
+      ))}
+    </div>
+  )
+}
+
+PrototypeForm.propTypes = {
+  className: PropTypes.string,
+  value: PropTypes.object,
+  onChange: PropTypes.func
+}
+
+const Form = styled(PrototypeForm)`
+align-self: center;
+display: flex;
+margin: 0;
+min-width: 70%;
+flex-direction: column;
+justify-content: space-around;
+`
 
 const PrototypeSubmit = ({className, onClick}) => (
-<div {...{className}}>
-  <Button {...{onClick}} title="login"/>
-</div>
+  <div {...{className}}>
+    <Button {...{onClick}} title="login"/>
+  </div>
 )
 
 const Submit = styled(PrototypeSubmit)`
 align-self: center;
 `
 
-export { Container, Submit, TextField, Form, Header }
+export { Container, Submit, Form, Header }

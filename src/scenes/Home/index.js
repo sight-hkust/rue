@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import NavigationBar from 'components/NavigationBar'
+import Navigation from 'components/NavigationBar'
 import { Route } from 'react-router-dom'
 import Triage from 'scenes/Triage'
 import { Container, Content, Footer, SectionMultiplexer } from './fragments'
@@ -8,7 +8,7 @@ class Home extends Component {
   render(){
     return (
       <Container>
-        <NavigationBar/>
+        <Navigation/>
         <Content>
           <Route exact path="/dashboard" component={SectionMultiplexer}/>
           <Route path="/dashboard/triage" component={Triage}/>

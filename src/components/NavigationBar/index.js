@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Icon, Avatar } from 'components/UIKit'
-import { Layout } from 'antd'
-import './style.css'
-const { Header } = Layout
+import styled from 'styled-components'
 
 const navigations = [
   {
@@ -28,19 +26,44 @@ const navigations = [
   }
 ]
 
-const links = navigations.map( (item, i) => {
-  return <div key={i} className="em-component-navitem"><NavLink activeClassName="em-component-navitem-active" to={item.path}><Icon fa={item.icon}/>{item.name}</NavLink></div>
-})
+const Anchor = styled.div`
+  margin: 0 1em;
+`
 
-class NavigationBar extends Component {
+const NavigationBar = styled.div`
+  box-shadow: 0 1px 7px rgba(0,0,0,.05);
+  background-color: #fff;
+  width: 100vw;
+  min-height: 64px;
+  display: flex;
+  flex-direction: row-reverse;
+
+`
+
+const PrototypeLinks = ({className}) => {
+  return (
+    <div className={className}>
+      { navigations.map( (item, i) => <Anchor key={i}><NavLink to={item.path}><Icon fa={item.icon}/>{item.name}</NavLink></Anchor> ) }
+    </div>
+  )
+}
+
+const Links = styled(PrototypeLinks)`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: row;
+`
+
+class Navigation extends Component {
   render(){
     return (
-      <Header className="em-component-navigationbar">
-        {links}
-        <Avatar></Avatar>
-      </Header>
+      <NavigationBar>
+        <Avatar/>
+        <Links/>
+      </NavigationBar>
     )
   }
 }
 
-export default NavigationBar
+export default Navigation
