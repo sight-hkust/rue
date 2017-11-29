@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { Steps, Button, Form } from 'antd'
 import { Switch, Route } from 'react-router-dom'
 import Profile from 'components/Profile'
+import Condition from 'components/Condition'
+import MedicalHistory from 'components/MedicalHistory'
+import VitalsForm from 'components/VitalsForm'
 const { Step } = Steps
 
 export default class TriageProcedure extends Component {
@@ -38,10 +41,12 @@ export default class TriageProcedure extends Component {
             </div>)
           }}
         />
-        {
-          // <Route path="/dashboard/triage/:id/vitals"
-          // component={()=>(<Vitals edit id={match.params.id}/>)} />
-        }
+        <Route path={`/dashboard/triage/${profileId}/condition`}
+          render={()=>(<Condition edit id={profileId}/>)} />
+        <Route path={`/dashboard/triage/${profileId}/medicalhistory`}
+          render={()=>(<MedicalHistory edit id={profileId}/>)} />
+        <Route path={`/dashboard/triage/${profileId}/vitals`}
+          render={()=>(<VitalsForm edit id={profileId}/>)} />
       </Switch>
       <Button onClick={()=>{console.log('save!')}}>Save</Button>
     </div>)
