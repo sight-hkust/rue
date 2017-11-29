@@ -1,11 +1,7 @@
 import React, { Component } from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Redirect, Switch, Route } from 'react-router-dom'
 import Placeholder from 'components/Placeholder'
-import CreateProfileAndRedirect from 'components/CreateProfileAndRedirect'
-import Profile from 'components/Profile'
-import Condition from 'components/Condition'
-import MedicalHistory from 'components/MedicalHistory'
-import VitalsForm from 'components/VitalsForm'
+import TriageProcedure from 'components/TriageProcedure'
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -20,19 +16,24 @@ const Container = styled.div`
 
 export default class Triage extends Component {
   render () {
-    return (
-      <Container>
-        <Switch>
-          <Route exact path="/dashboard/triage" component={Placeholder} />
-          <Route path="/dashboard/triage/condition" component={Condition}/>
-          <Route path="/dashboard/triage/medicalhistory" component={MedicalHistory}/>
-          <Route path="/dashboard/triage/vitals" component={VitalsForm}/>
-          <Route path="/dashboard/triage/new" component={CreateProfileAndRedirect} />
-          <Route path="/dashboard/triage/:id" component={({match})=>{
-            return <Profile id={match.params.id}/>
-          }} />
-        </Switch>
-      </Container>
-    )
+    return (<Container>
+      <Switch>
+        <Route exact path="/dashboard/triage" component={Placeholder} />
+        <Route
+          exact
+          path="/dashboard/triage/:profileId"
+          render={({match})=>{
+            return (<Redirect
+              push
+              to={`/dashboard/triage/${match.params.profileId}/${TriageProcedure.firstStep}`}
+            />)
+          }}
+        />
+        <Route
+          path="/dashboard/triage/:profileId/:section"
+          component={TriageProcedure}
+        />
+      </Switch>
+    </Container>)
   }
 }
