@@ -1,21 +1,30 @@
 /*eslint-disable no-unused-vars*/
 import React, { Component } from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Redirect, Switch, Route } from 'react-router-dom'
 import Placeholder from 'components/Placeholder'
-import CreateProfileAndRedirect from 'components/CreateProfileAndRedirect'
-import Profile from 'components/Profile'
+import TriageProcedure from 'components/TriageProcedure'
 /*eslint-enable no-unused-vars*/
 
 export default class Triage extends Component {
   render () {
-    return <div>
+    return (<div>
       <Switch>
         <Route exact path="/dashboard/triage" component={Placeholder} />
-        <Route path="/dashboard/triage/new" component={CreateProfileAndRedirect} />
-        <Route path="/dashboard/triage/:id" component={({match})=>{
-          return <Profile id={match.params.id}/>
-        }} />
+        <Route
+          exact
+          path="/dashboard/triage/:profileId"
+          render={({match})=>{
+            return (<Redirect
+              push
+              to={`/dashboard/triage/${match.params.profileId}/${TriageProcedure.firstStep}`}
+            />)
+          }}
+        />
+        <Route
+          path="/dashboard/triage/:profileId/:section"
+          component={TriageProcedure}
+        />
       </Switch>
-    </div>
+    </div>)
   }
 }
