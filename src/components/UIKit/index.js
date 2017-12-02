@@ -55,13 +55,17 @@ const Header = styled(PrototypeHeader)`
   font-size: 1.25em;
 `
 
-const PrototypeButton = ({className, title}) => {
+const PrototypeButton = ({className, title, icon}) => {
+  if(icon){
+    return <button {...{className}}><i className={`fa fa-${icon}`}></i>{title}</button>
+  }
   return <button {...{className}}>{title}</button>
 }
 
 PrototypeButton.propTypes = {
   className: PropTypes.string,
-  title: PropTypes.string
+  title: PropTypes.string,
+  icon: PropTypes.string
 }
 
 const Button = styled(PrototypeButton)`
@@ -71,6 +75,7 @@ const Button = styled(PrototypeButton)`
   line-height: 40px;
   letter-spacing: 2px;
   padding: 0 18px;
+  margin: 4px;
   box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
   background: ${({color}) => color ? color : '#fff'};
   border-radius: 0.25rem;
@@ -85,6 +90,10 @@ const Button = styled(PrototypeButton)`
   transition: all .15s ease;
   cursor: pointer;
   user-select: none;
+
+  & > i {
+    margin-right: ${({title}) => title===''?'0':'6px'} ;
+  }
 
   &:hover {
     transform: translateY(-1px);
