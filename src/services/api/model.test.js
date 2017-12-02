@@ -19,19 +19,7 @@ describe('Models', ()=>{
     expect(count).toBe(0)
   })
   describe('Patient', ()=>{
-    it('can attach stuff', async ()=>{
-      const patient = Patient.create({
-        profile: {},
-        condition: {},
-        medicalHistory: {},
-        entries: {},
-      })
-      patient.attach('hello', 10)
-      patient.attach('bye', 'hi')
-      await expect(patient.save()).resolves.toBeTruthy()
-      const fetchedPatient = (await new Parse.Query(Patient).find())[0]
-      expect(fetchedPatient.entries.hello).toBe(10)
-    })
+    it('has nothing special to test', ()=>{})
   })
   describe('Vitals', ()=>{
     it('can compute BMI', ()=>{

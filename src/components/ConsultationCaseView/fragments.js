@@ -5,7 +5,7 @@ import { Button } from 'components/UIKit'
 const CaseViewContainer = styled.div`
   box-shadow: 0 7px 14px 0 rgba(50,50,93,.1), 0 3px 6px 0 rgba(0,0,0,.07);
   width: 85%;
-  min-height: 85vh;
+  height: 85vh;
   background-color: white;
   border-radius: 5px;
   display: flex;
@@ -54,15 +54,48 @@ const Actions = styled(PrototypeActions)`
   align-items: center;
   background-color: grey;
 `
-// const PrototypeCases = ({className}) => {
-//   return (
-//   )
-// }
 
-const Cases = styled.div`
+const PrototypeCaseListFragments = {
+  ChiefComplaint: styled.h1``,
+  Diagnosis: styled.p`
+    &:before{ content: 'Diagnosis: '; }
+  `,
+}
+
+const PrototypeCaseList = ({className, cases}) => {
+  const {ChiefComplaint, Diagnosis} = PrototypeCaseListFragments
+  console.log(cases)
+  return (
+    <div {...{className}}>
+      <div>
+        {cases.map(c=>(
+          <div key={c._localId}>
+            <ChiefComplaint>
+              {c.chiefComplaint}
+            </ChiefComplaint>
+            <Diagnosis>
+              {c.diagnosis}
+            </Diagnosis>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+const CaseList = styled(PrototypeCaseList)`
+  overflow: hidden;
   width: 25%;
   height: 92%;
   background-color: blue;
+
+  &>div {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding-right: 15px;
+    box-sizing: content-box;
+  }
 `
 
 const CaseFile = styled.div`
@@ -71,4 +104,4 @@ const CaseFile = styled.div`
   background-color: yellow;
 `
 
-export { CaseViewContainer, Actions, Container, Profile, Cases, CaseFile }
+export { CaseViewContainer, Actions, Container, Profile, CaseList, CaseFile }

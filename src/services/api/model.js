@@ -21,15 +21,10 @@ const Patient = makeClass({
     'profile',
     'condition',
     'medicalHistory',
-    'entries',
   ],
-  'functions': {
-    attach(key, value){
-      if(!this.entries)
-        this.entries = {}
-      this.entries[key] = value
-    },
-  },
+  'relationalFields': [
+    'cases',
+  ],
 })
 
 /*
