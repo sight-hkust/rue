@@ -19,29 +19,32 @@ class PatientListSideBar extends Component {
     super(props)
     this.state = {}
     this.updatePatientListSideBarState = this.updatePatientListSideBarState.bind(this)
-    this.search = this.search.bind(this)
+    this.fetchPatientList = props.actions.fetchPatientList.bind(this)
   }
 
+  componentDidMount() {
+  //  this.props.dispatch({
+  //    type: FETCH_PATIENT_LIST
+  //  })
+    this.fetchPatientList()
+   }
 
   updatePatientListSideBarState(e){
-    this.setState({ searchpatientdb: e.target.value })
-  }
-
-  search() {
-    console.log('test')
+    this.setState({ searchpatientdb: e.target.value.substr(0,20) })
   }
 
 
   render(){
-    const { patients } = this.props
-    const { fetchPatientList } = this.props.actions
-    console.log(patients)
+    let patients = this.props.patients.filter(
+      (patient) => {
+        return patient.name.indexOf(this.state.searchpatientdb) !== -1
+      }
+    )
     return (
       <Layout>
-        <button onClick={fetchPatientList}>refresh</button>
         <center style={{marginTop: '5%'}}>
           <div className="patient-search">
-            <input type="text" onChange={this.search}/>
+            <input type="text" onChange={this.updatePatientListSideBarState}/>
           </div>
         </center>
         <div>
