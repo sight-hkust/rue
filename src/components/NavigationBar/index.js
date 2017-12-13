@@ -1,36 +1,35 @@
-/*eslint-disable no-unused-vars*/
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+import { Icon, Avatar } from 'components/UIKit'
 import { Layout } from 'antd'
-import Avatar from 'components/Avatar'
 import './style.css'
 const { Header } = Layout
-/*eslint-disable no-unused-vars*/
+
 const navigations = [
   {
     name: 'Triage',
     path: '/dashboard/triage',
-    icon: 'fa fa-heartbeat'
+    icon: 'heartbeat'
   },
   {
     name: 'Consultation',
     path: '/dashboard/consultation',
-    icon: 'fa fa-user-md'
+    icon: 'user-md'
   },
   {
     name: 'Pharmacy',
     path: '/dashboard/pharmarcy',
-    icon: 'fa fa-medkit'
+    icon: 'medkit'
   },
   {
     name: 'Overview',
     path: '/dashboard/overview',
-    icon: 'fa fa-pie-chart'
+    icon: 'pie-chart'
   }
 ]
 
-const links = navigations.map( (item) => {
-  return <div className="em-component-navitem"><Link to={item.path}><i className={item.icon}></i>{item.name}</Link></div>
+const links = navigations.map( (item, i) => {
+  return <div key={i} className="em-component-navitem"><NavLink activeClassName="em-component-navitem-active" to={item.path}><Icon fa={item.icon}/>{item.name}</NavLink></div>
 })
 
 class NavigationBar extends Component {

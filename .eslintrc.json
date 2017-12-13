@@ -4,7 +4,7 @@
         "es6": true,
         "jest": true
     },
-    "extends": "eslint:recommended",
+    "extends": ["eslint:recommended", "plugin:react/recommended"],
     "parserOptions": {
         "ecmaFeatures": {
             "experimentalObjectRestSpread": true,
@@ -14,7 +14,8 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react",
+        "styled-components-config"
     ],
     "rules": {
         "indent": [
@@ -33,6 +34,7 @@
             "error",
             "never"
         ],
-        "no-console": "off"
+        "no-console": "off",
+        "react/jsx-uses-vars": ["error"]
     }
 }
