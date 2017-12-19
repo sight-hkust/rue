@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import LoginForm from 'components/LoginForm'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
+import LoginForm from 'components/LoginForm'
 
 const Container = styled.div`
   display: flex;
@@ -27,6 +28,10 @@ class Login extends Component {
       </Container>
     )
   }
+}
+
+Login.propTypes = {
+  token: PropTypes.string
 }
 
 const mapStateToProps = (state) => ({

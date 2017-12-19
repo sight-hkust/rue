@@ -1,8 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Button } from 'components/UIKit'
+import PropTypes from 'prop-types'
 
-const CaseViewContainer = styled.div`
+const Workspace = styled.div`
   box-shadow: 0 7px 14px 0 rgba(50,50,93,.1), 0 3px 6px 0 rgba(0,0,0,.07);
   width: 85%;
   height: 85vh;
@@ -18,12 +19,11 @@ const Container = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  background-color: red;
+  border-radius: 5px;
 `
 
 const Profile = styled.div`
   flex: 2;
-  background-color: green;
 `
 
 const actionsTemplate = [
@@ -37,7 +37,7 @@ const actionsTemplate = [
   },
   {
     title: 'New',
-    icon: 'plus-circle'
+    icon: 'edit'
   }
 ]
 
@@ -47,23 +47,30 @@ const PrototypeActions = ({className}) => (
   </div>
 )
 
+PrototypeActions.propTypes = {
+  className: PropTypes.string
+}
+
 const Actions = styled(PrototypeActions)`
   width: 100%;
   height: 8%;
   display: flex;
   align-items: center;
-  background-color: grey;
+  margin: 8px;
 `
 
 const PrototypeCaseListFragments = {
-  ChiefComplaint: styled.h1``,
+  ChiefComplaint: styled.h3``,
+  Date: styled(({className, date}) => (
+    <span className={className}><i className="fa fa-clock-o"></i> {date}</span>
+  ))``,
   Diagnosis: styled.p`
-    &:before{ content: 'Diagnosis: '; }
+    &:before{ content: 'Symptoms: '; }
   `,
 }
 
 const PrototypeCaseList = ({className, cases}) => {
-  const {ChiefComplaint, Diagnosis} = PrototypeCaseListFragments
+  const {ChiefComplaint, Diagnosis, Date} = PrototypeCaseListFragments
   console.log(cases)
   return (
     <div {...{className}}>
@@ -73,9 +80,11 @@ const PrototypeCaseList = ({className, cases}) => {
             <ChiefComplaint>
               {c.chiefComplaint}
             </ChiefComplaint>
+            <Date date={c.createdAt}/>
             <Diagnosis>
               {c.diagnosis}
             </Diagnosis>
+            <hr/>
           </div>
         ))}
       </div>
@@ -83,11 +92,15 @@ const PrototypeCaseList = ({className, cases}) => {
   )
 }
 
+PrototypeCaseList.propTypes = {
+  className: PropTypes.string,
+  cases: PropTypes.array
+}
+
 const CaseList = styled(PrototypeCaseList)`
   overflow: hidden;
-  width: 25%;
-  height: 92%;
-  background-color: blue;
+  width: 27.5%;
+  height: 87.5%;
 
   &>div {
     width: 100%;
@@ -96,12 +109,25 @@ const CaseList = styled(PrototypeCaseList)`
     padding-right: 15px;
     box-sizing: content-box;
   }
+
+  &>div>div {
+    margin: 4px 12px;
+    padding: 4px 8px;
+  }
+
+  &>div>div>hr {
+    height: 1px;
+    border: none;
+    border-radius: 1px;
+    width: 90%;
+    background-color: lightgrey;
+  }
 `
 
-const CaseFile = styled.div`
-  width: 75%;
-  height: 92%;
-  background-color: yellow;
+const CaseView = styled.div`
+  width: 72.5%;
+  height: 88%;
+  background: yellow;
 `
 
-export { CaseViewContainer, Actions, Container, Profile, CaseList, CaseFile }
+export { Workspace, Actions, Container, Profile, CaseList, CaseView }

@@ -1,25 +1,25 @@
 import React, { Component } from 'react'
 // eslint-disable-next-line
 import { Redirect, Switch, Route } from 'react-router-dom'
-import { CaseViewContainer, Container, Profile, Actions, CaseList, CaseFile } from 'components/ConsultationCaseView/fragments'
+import { Workspace, Container, Profile, Actions, CaseList, CaseView } from 'components/ConsultationCaseView/fragments'
 import { Case } from 'services/api/model'
 import moment from 'moment'
 
 const fakeNews = ()=>[
   Case.create({
-    chiefComplaint: '頭好痛',
-    diagnosis: '用3M博士燈',
+    chiefComplaint: 'Headache',
+    diagnosis: 'Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt',
     advice: '',
     nextAppointment: moment('2017-12-06 09:00').valueOf(),
-    symptoms: '頭好痛',
+    symptoms: 'Migraine',
     labTestResult: '',
   }),
   Case.create({
-    chiefComplaint: '眼好酸',
-    diagnosis: '用3M博士燈',
+    chiefComplaint: 'Sour Throat',
+    diagnosis: 'Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt',
     advice: '',
     nextAppointment: moment('2017-12-06 09:00').valueOf(),
-    symptoms: '眼好酸',
+    symptoms: 'Flu, Cold',
     labTestResult: '',
   }),
 ]
@@ -27,18 +27,17 @@ const fakeNews = ()=>[
 export default class Consultation extends Component {
   render() {
     return (
-      <CaseViewContainer>
+      <Workspace>
         <Container>
           <Actions/>
           <CaseList cases={[
             ...fakeNews(), ...fakeNews(), ...fakeNews(), ...fakeNews(), ...fakeNews(), ...fakeNews(), ...fakeNews(), ...fakeNews(), ...fakeNews(), ...fakeNews(), ...fakeNews(),
             ...fakeNews(), ...fakeNews(), ...fakeNews(), ...fakeNews(), ...fakeNews(), ...fakeNews(), ...fakeNews(), ...fakeNews(), ...fakeNews(), ...fakeNews(), ...fakeNews(),
-            ...fakeNews(), ...fakeNews(), ...fakeNews(), ...fakeNews(), ...fakeNews(), ...fakeNews(), ...fakeNews(), ...fakeNews(), ...fakeNews(), ...fakeNews(), ...fakeNews(),
           ]}/>
-          <CaseFile/>
+          <CaseView/>
         </Container>
         <Profile/>
-      </CaseViewContainer>
+      </Workspace>
     )
   }
 }

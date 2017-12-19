@@ -31,7 +31,7 @@ class LoginForm extends Component {
 
     return (
       <Container>
-        <Header/>
+        <Header text="medeasy"/>
         <Form value={this.state} onChange={this.updateLoginFormState}/>
         <Submit onClick={this.onSubmit}/>
       </Container>

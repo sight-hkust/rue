@@ -92,10 +92,10 @@ const Label = styled(PrototypeLabel)`
   `}
 `
 
-const PrototypeTextField = ({className, description, last, name, title}) => (
+const PrototypeTextField = ({className, description, last, name, title, onChange, value}) => (
   <div className={className}>
     <Label last={last} src={name} title={title}/>
-    <textarea name={name} cols="30" rows="5" placeholder={description}/>
+    <textarea value={value} onChange={onChange} name={name} cols="30" rows="5" placeholder={description}/>
   </div>
 )
 
@@ -105,7 +105,9 @@ PrototypeTextField.propTypes = {
   name: PropTypes.string,
   src: PropTypes.string,
   title: PropTypes.string,
-  last: PropTypes.number
+  last: PropTypes.number,
+  value: PropTypes.string,
+  onChange: PropTypes.func
 }
 
 const TextField = styled(PrototypeTextField)`
@@ -140,12 +142,17 @@ const TextField = styled(PrototypeTextField)`
   }
 `
 
-const Form = () => {
+const Form = ({onChange, value}) => {
   return (
     <div>
-      { templates.map( (field, i) => (<TextField key={i} last={i === templates.length - 1} name={field.name} title={field.title} description={field.description}/>))}
+      { templates.map( (field, i) => (<TextField onChange={onChange} value={value[field.name]} key={i} last={i === templates.length - 1} name={field.name} title={field.title} description={field.description}/>))}
     </div>
   )
+}
+
+Form.propTypes = {
+  onChange: PropTypes.func,
+  value: PropTypes.object
 }
 
 export { Container, Form }

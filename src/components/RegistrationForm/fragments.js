@@ -2,12 +2,30 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-const templates = [
+const registration = [
   { id: 'username', icon: 'user', type: 'text'},
   { id: 'password', icon: 'lock', type: 'password'},
   { id: 'nickname', icon: 'id-badge', type: 'text'},
   { id: 'role', icon: 'user-md', type: 'text'},
   { id: 'email', icon: 'inbox', type: 'text'}
+]
+
+const briefings = [
+  {
+    icon: require('./images/triage.png'),
+    subtitle: 'Triage',
+    description: 'Manage all patients\' health record in a single location at ease and without hassle.'
+  },
+  {
+    icon: require('./images/consultation.png'),
+    subtitle: 'Consultation',
+    description: 'Streamline workflow for recording patient\'s chief complaint and examination result during visit.'
+  },
+  {
+    icon: require('./images/pharmacy.png'),
+    subtitle: 'Pharmacy',
+    description: 'Track and update inventory status with detailed prescription report.'
+  },
 ]
 
 const Container = styled.div`
@@ -18,92 +36,198 @@ const Container = styled.div`
   border: 1px solid rgba(0,0,0,.04)!important;
   position: absolute;
   padding: 15px 15px;
-  width: 30%;
-  height: 75%;
+  width: 55%;
+  min-height: 560px;
   background-color: white;
-  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 3px 20px 2px rgba(0, 0, 0, .1);
 `
 
-const Header = styled.div`
-  align-self: center;
-  background-image: url(${require('./images/temp_logo.png')});
-  background-size: cover;
-  width: 100px;
-  height: 100px;
+const PrototypeHeader = ({className, text}) => (
+  <header className={className}>
+    <h2>{text}</h2>
+  </header>
+)
+
+PrototypeHeader.propTypes = {
+  className: PropTypes.string,
+  text: PropTypes.string
+}
+
+
+const Header = styled(PrototypeHeader)`
+ align-self: center;
+ background-image: url(${require('./images/temp_logo.png')});
+ background-size: cover;
+ width: 80px;
+ height: 80px;
+ display: flex;
+ justify-content: center;
+
+ > h2 {
+   user-select: none;
+   color:white;
+   text-align: center;
+   background: linear-gradient(60deg, hsl(231, 63%, 70%), hsl(231, 64%, 63%));
+   padding: 6px 12px;
+   border-radius: 24px;
+   margin-bottom: 8px;
+   width: 160px;
+   font-size: 20px;
+   font-family: 'Quicksand', sans-serif;
+   font-weight: 500;
+   letter-spacing: 3px;
+   text-transform: uppercase;
+   box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.2), 0 13px 24px -11px hsla(231, 63%, 55%, 0.6);
+   position: absolute;
+   top: -24px;
+ }
 `
 
-const PrototypeTextfield = ({ className, id ,icon ,value, onChange, type }) => {
+const PrototypeTextfield = ({className, icon, bind, name, onChange, type='text'}) => (
+  <div className={className}>
+    <div>
+      <i className={`fa fa-${icon}`}></i>
+      <input type={type} name={name} value={bind} placeholder={name} onChange={onChange}/>
+    </div>
+    <hr/>
+  </div>
+)
+
+PrototypeTextfield.propTypes = {
+  type: PropTypes.string,
+  className: PropTypes.string,
+  icon: PropTypes.string,
+  placeholder: PropTypes.string,
+  onChange: PropTypes.func,
+}
+
+const Textfield = styled(PrototypeTextfield)`
+  display:flex;
+  flex-direction: column;
+  width:100%;
+
+  > div>i {
+    font-size: 18px;
+    margin-right: 4px;
+    color: #CCD1D8;
+    margin-left: 4px;
+  }
+
+  > div>input {
+    margin-left: 8px;
+    background: transparent;
+    outline: none;
+    font-size: 14px;
+    font-family: 'Nunito', sans-serif;
+    letter-spacing: 0.8px;
+    font-weight: 400;
+    padding-bottom: 4px;
+    border: 0;
+  }
+
+  > div>input:after {
+    content: '';
+    border-bottom: solid 3px #019fb6;
+    transform: scaleY(0);
+    transition: transform 250ms ease-in-out;
+  }
+
+  > div>input:focus:after {
+    transform: scaleY(1);
+    transform-origin: 50% 0%;
+  }
+
+  > div>input::placeholder {
+    font-family: 'Quicksand', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #CCD1D8;
+  }
+
+  > hr {
+    border: 0;
+    height: 1px;
+    margin-top: 8px;
+    max-width: 256px;
+    border-radius: 1px;
+    background-color: #E8ECF0;
+}
+`
+
+const PrototypeIntroduction = ({className, icon, subtitle, description}) => (
+  <section className={className}>
+    <img src={icon} alt=""/>
+    <div>
+      <h2>{subtitle}</h2>
+      <p>{description}</p>
+    </div>
+  </section>
+)
+
+PrototypeIntroduction.propTypes = {
+  className: PropTypes.string,
+  icon: PropTypes.string,
+  subtitle: PropTypes.string,
+  description: PropTypes.string
+}
+
+const Introduction = styled(PrototypeIntroduction)`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  >img {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    margin-left: 12px;
+  }
+
+  >div {
+    width: 70%;
+  }
+
+  >h2 {
+    font-family: 'Quicksand', sans-serif;
+  }
+
+  >p {
+    font-family: 'Nunito', sans-serif;
+  }
+`
+
+const PrototypeIntroductions = ({className}) => {
   return (
     <div className={className}>
-      <label htmlFor={id}>
-        <i className={`fa fa-${icon}`}></i>
-      </label>
-      <input id={id} type={type} placeholder={id} value={value} onChange={onChange}/>
+      {briefings.map( (intro, i) => (<Introduction key={i} icon={intro.icon} subtitle={intro.subtitle} description={intro.description} />))}
     </div>
   )
 }
 
-PrototypeTextfield.propTypes = {
-  className: PropTypes.string,
-  id: PropTypes.string,
-  icon: PropTypes.string,
-  value: PropTypes.string,
-  onChange: PropTypes.func,
-  type: PropTypes.string
-}
+const Introductions = styled(PrototypeIntroductions)`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 50%;
+`
 
-const TextField = styled(PrototypeTextfield)`
-display: flex;
-margin: 0.875em 0;
+const Actions = styled.div`
+  display: flex;
+  justify-content: center;
+`
 
-> input {
-  background-image: none;
-  border: 0;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  outline: 0;
-  padding: 0;
-  transition: background-color 0.3s;
-}
-
-> input::placeholder {
-  color: #AFAFAF;
-  text-transform: capitalize;
-}
-
-> input[type='text'], input[type='password'], label {
-  border-radius: 0.25rem;
-  padding: 16px;
-  padding: 1rem;
-}
-
-> label {
-  background-color: #F3F4F5;
-  border-bottom-right-radius: 0;
-  border-top-right-radius: 0;
-  padding-left: 20px;
-  padding-left: 1.25rem;
-  padding-right: 20px;
-  padding-right: 1.25rem;
-}
-
-> label > i {
-  color: #8A91FF;
-}
-
-> input[type='text'], > input[type='password'] {
-  color: #606468;
-  background-color: #f6f8fa;
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 0;
-} 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: space-between;
 `
 
 const PrototypeForm = ({className, onChange, value}) => {
   return (
     <div className={className}>
-      { templates.map( (field, i) => (<TextField key={i} id={field.id} type={field.type} icon={field.icon} value={value[field.id]} onChange={onChange} />))}
+      { registration.map( (field, i) => (<Textfield key={i} name={field.id} type={field.type} icon={field.icon} bind={value[field.id]} onChange={onChange} />))}
     </div>
   )
 }
@@ -116,11 +240,13 @@ PrototypeForm.propTypes = {
 
 
 const Form = styled(PrototypeForm)`
-  align-self: center;
+  width: 50%;
   display: flex;
+  flex-wrap: wrap;
   margin: 0;
   flex-direction: column;
   justify-content: space-around;
-
+  padding-left: 10%;
+  min-height: 360px;
 `
-export { Container, Header, Form }
+export { Container, Header, Form, Introductions, Wrapper, Actions}

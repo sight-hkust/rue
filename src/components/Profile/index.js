@@ -1,140 +1,139 @@
-/* eslint-disable no-unused-vars */
 import React, { Component } from 'react'
-import { Form, Button, DatePicker, Input, Radio } from 'antd'
-import './style.css'
-const FormItem = Form.Item
-const RadioButton = Radio.Button
-const RadioGroup = Radio.Group
-const TextArea = Input.TextArea
-const InputGroup = Input.Group
-/* eslint-enable no-unused-vars */
+import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
-const ProfileForm = class ProfileForm extends Component {
-  constructor(props){
+const templates = [
+  {
+    icon: 'user',
+    name: 'name',
+    title: 'Name',
+    type: 'text'
+  },
+  {
+    icon: 'calendar',
+    name: 'dob',
+    title: 'Date of Birth',
+    type: 'text'
+  },
+  {
+    icon: 'venus-mars',
+    name: 'gender',
+    title: 'Gender',
+    type: 'text'
+  },
+  {
+    icon: 'diamond',
+    name: 'maritalStatus',
+    title: 'Marital Status',
+    type: 'text'
+  },
+  {
+    icon: 'phone',
+    name: 'contact',
+    title: 'Contact',
+    type: 'text'
+  }
+]
+
+const PrototypeTextfield = ({className, name, icon, placeholder, onChange, type='text'}) => (
+  <div className={className}>
+    <div>
+      <i className={`fa fa-${icon}`}></i>
+      <input type={type} name={name} placeholder={placeholder} onChange={onChange}/>
+    </div>
+    <hr/>
+  </div>
+)
+
+PrototypeTextfield.propTypes = {
+  type: PropTypes.string,
+  className: PropTypes.string,
+  icon: PropTypes.string,
+  placeholder: PropTypes.string,
+  onChange: PropTypes.func,
+}
+
+const Textfield = styled(PrototypeTextfield)`
+  display:flex;
+  flex-direction: column;
+
+  > div>i {
+    font-size: 18px;
+    margin-right: 4px;
+    color: #CCD1D8;
+    margin-left: 4px;
+  }
+
+  > div {
+    max-width: 256px;
+  }
+
+  > div>input {
+    margin-left: 8px;
+    background: transparent;
+    outline: none;
+    font-size: 15px;
+    font-family: 'Nunito', sans-serif;
+    letter-spacing: 0.8px;
+    font-weight: 400;
+    padding-bottom: 4px;
+    border: 0;
+  }
+
+  > div>input:after {
+    content: '';
+    border-bottom: solid 3px #019fb6;
+    transform: scaleY(0);
+    transition: transform 250ms ease-in-out;
+  }
+
+  > div>input:focus:after {
+    transform: scaleY(1);
+    transform-origin: 50% 0%;
+  }
+
+  > div>input::placeholder {
+    font-family: 'Quicksand', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #CCD1D8;
+  }
+
+  > hr {
+    border: 0;
+    height: 1px;
+    margin-top: 8px;
+    max-width: 256px;
+    border-radius: 1px;
+    background-color: #E8ECF0;
+  }
+`
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 24px;
+  min-height: 640px;
+`
+
+export default class Profile extends Component {
+  constructor (props) {
     super(props)
-    if(!this.props.form)
-      throw Error('This component should be created using antd.Form.create.')
-  }
-  render(){
-    const { 'form': {getFieldDecorator} } = this.props
-    const formItemLayout = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 20 },
+    this.state = {
+      name : '',
+      gender: '',
+      birthday: '',
+      maritalStatus: '',
+      address: '',
+      contact: ''
     }
+  }
+
+  render () {
     return (
-      <div className="em-component-profile-container">
-        <Form layout="vertical">
-          <FormItem {...formItemLayout} label="Name">
-            {getFieldDecorator('name')(
-              <Input/>
-            )}
-          </FormItem>
-          <FormItem {...formItemLayout} label="Gender">
-            {getFieldDecorator('gender')(
-              <RadioGroup>
-                <RadioButton style={{ lineHeight: '2.4rem'}} value="F">Female</RadioButton>
-                <RadioButton style={{ lineHeight: '2.4rem'}} value="M">Male</RadioButton>
-              </RadioGroup>
-            )}
-          </FormItem>
-          <FormItem {...formItemLayout} label="Date of Birth">
-            {getFieldDecorator('dob')(
-              <DatePicker locale="" />
-            )}
-          </FormItem>
-          <FormItem {...formItemLayout} label="Marital Status">
-            {getFieldDecorator('status')(
-              <RadioGroup>
-                <RadioButton style={{ lineHeight: '2.4rem'}} value="D">Divorced</RadioButton>
-                <RadioButton style={{ lineHeight: '2.4rem'}} value="M">Married</RadioButton>
-                <RadioButton style={{ lineHeight: '2.4rem'}} value="S">Single</RadioButton>
-                <RadioButton style={{ lineHeight: '2.4rem'}} value="W">Widowed</RadioButton>
-              </RadioGroup>
-            )}
-          </FormItem>
-          <FormItem {...formItemLayout} label="Address">
-            {getFieldDecorator('address')(
-              <TextArea rows={3} />
-            )}
-          </FormItem>
-          <FormItem {...formItemLayout} label="Contact">
-            <InputGroup compact>
-              {getFieldDecorator('contact-code')(
-                <Input style={{width: '30%'}} placeholder="Area Code" />
-              )}
-              {getFieldDecorator('contact-num')(
-                <Input style={{width: '70%'}} placeholder="Phone No."/>
-              )}
-            </InputGroup>
-          </FormItem>
-        </Form>
-      </div>
+      <Container>
+        {templates.map( (field, i) => (<Textfield key={i} icon={field.icon} placeholder={field.title} name={field.name} />))}
+      </Container>
     )
   }
-}
-
-// todo: change to not a form
-class ProfileDisplay extends Component {
-  render(){
-    const { 'form': {getFieldDecorator} } = this.props
-    const formItemLayout = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 20 },
-    }
-    return (
-      <div className="em-component-profile-container">
-        <Form layout="vertical">
-          <FormItem label="Todo: make this form readonly" />
-          <FormItem {...formItemLayout} label="Name">
-            {getFieldDecorator('name')(
-              <Input/>
-            )}
-          </FormItem>
-          <FormItem {...formItemLayout} label="Gender">
-            {getFieldDecorator('gender')(
-              <RadioGroup>
-                <RadioButton style={{ lineHeight: '2.4rem'}} value="F">Female</RadioButton>
-                <RadioButton style={{ lineHeight: '2.4rem'}} value="M">Male</RadioButton>
-              </RadioGroup>
-            )}
-          </FormItem>
-          <FormItem {...formItemLayout} label="Date of Birth">
-            {getFieldDecorator('dob')(
-              <DatePicker locale="" />
-            )}
-          </FormItem>
-          <FormItem {...formItemLayout} label="Marital Status">
-            {getFieldDecorator('status')(
-              <RadioGroup>
-                <RadioButton style={{ lineHeight: '2.4rem'}} value="D">Divorced</RadioButton>
-                <RadioButton style={{ lineHeight: '2.4rem'}} value="M">Married</RadioButton>
-                <RadioButton style={{ lineHeight: '2.4rem'}} value="S">Single</RadioButton>
-                <RadioButton style={{ lineHeight: '2.4rem'}} value="W">Widowed</RadioButton>
-              </RadioGroup>
-            )}
-          </FormItem>
-          <FormItem {...formItemLayout} label="Address">
-            {getFieldDecorator('address')(
-              <TextArea rows={3} />
-            )}
-          </FormItem>
-          <FormItem {...formItemLayout} label="Contact">
-            {getFieldDecorator('contact')(
-              <InputGroup compact>
-                <Input style={{width: '30%'}} placeholder="Area Code" />
-                <Input style={{width: '70%'}} placeholder="Phone No."/>
-              </InputGroup>
-            )}
-          </FormItem>
-        </Form>
-      </div>
-    )
-  }
-}
-
-export default {
-  Form: ProfileForm,
-  // temp remedy for missing getFieldDecorator until we change it
-  // to really be a non-form
-  Display: Form.create()(ProfileDisplay),
 }

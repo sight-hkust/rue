@@ -1,9 +1,10 @@
 import React, { PureComponent } from 'react'
-import { Button, Input, Modal } from 'antd'
+import { Input, Modal } from 'antd'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { register } from 'modules/action/auth'
-import { Container, Header, Form } from './fragments'
+import { Button } from 'components/UIKit'
+import { Container, Header, Form, Wrapper, Introductions, Actions } from './fragments'
 
 const confirm = Modal.confirm
 
@@ -28,7 +29,7 @@ class RegistrationForm extends PureComponent {
 
   updateFormState(e){
     const target = e.target
-    this.setState( ({credentials}) => ({ credentials: { ...credentials, [target.id] : target.value }}))
+    this.setState( ({credentials}) => ({ credentials: { ...credentials, [target.name] : target.value }}))
   }
 
   updateRegistrationToken(e){
@@ -43,7 +44,6 @@ class RegistrationForm extends PureComponent {
       title: 'Please enter your registration token',
       content: <Input placeholder="Registration Token" onChange={this.updateRegistrationToken} />,
       onOk() {
-        console.log(that.state.registrationToken)
         register(credentials, that.state.registrationToken)
       },
       onCancel() {
@@ -55,11 +55,14 @@ class RegistrationForm extends PureComponent {
   render(){
     return (
       <Container>
-        <Header />
-        <Form onChange={this.updateFormState} value={this.state.credentials}/>
-        <div className="em-component-registrationform-submit-button">
-          <Button className="em-component-registrationform-register-button" type="primary" onClick={this.showRegistrationConfirmationDialog}>REGISTER</Button>
-        </div>
+        <Header text="medeasy"/>
+        <Wrapper>
+          <Introductions/>
+          <Form onChange={this.updateFormState} value={this.state.credentials}/>
+        </Wrapper>
+        <Actions>
+          <Button title="register" color="#6678DD" onClick={this.showRegistrationConfirmationDialog}/>
+        </Actions>
       </Container>
     )
   }

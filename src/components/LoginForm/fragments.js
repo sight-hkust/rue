@@ -9,26 +9,59 @@ const templates = [
 ]
 
 const Container = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: space-around;
-border-radius: .25rem;
-border: 1px solid rgba(0,0,0,.04)!important;
-position: absolute;
-padding: 15px 15px;
-min-width: 380px;
-width: 25%;
-height: 45%;
-background-color: white;
-box-shadow: 0 1px 7px rgba(0,0,0,.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: .25rem;
+  border: 1px solid rgba(0,0,0,.04)!important;
+  position: absolute;
+  padding: 15px 15px;
+  min-width: 380px;
+  width: 25%;
+  height: 45%;
+  background-color: white;
+  box-shadow: 0 1px 7px rgba(0,0,0,.05);
 `
 
-const Header = styled.header`
-align-self: center;
-background-image: url(${require('./assets/temp_logo.png')});
-background-size: cover;
-width: 100px;
-height: 100px;
+const PrototypeHeader = ({className, text}) => (
+  <header className={className}>
+    <h2>{text}</h2>
+  </header>
+)
+
+PrototypeHeader.propTypes = {
+  className: PropTypes.string,
+  text: PropTypes.string
+}
+
+const Header = styled(PrototypeHeader)`
+  align-self: center;
+  background-image: url(${require('./assets/temp_logo.png')});
+  background-size: cover;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+
+  > h2 {
+    user-select: none;
+    color:white;
+    text-align: center;
+    background: linear-gradient(60deg, hsl(231, 63%, 70%), hsl(231, 64%, 63%));
+    padding: 6px 12px;
+    border-radius: 24px;
+    margin-bottom: 8px;
+    width: 160px;
+    font-size: 20px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.2), 0 13px 24px -11px hsla(231, 63%, 55%, 0.6);
+    position: absolute;
+    top: -24px;
+  }
 `
 
 const PrototypeTextField = ({className, icon, id, value, type, onChange}) => (
@@ -51,7 +84,7 @@ PrototypeTextField.propTypes = {
 
 const TextField = styled(PrototypeTextField)`
 display: flex;
-margin: 16px 0;
+margin: 8px 0;
 min-width: 75%;
 
 > input {
@@ -69,12 +102,17 @@ min-width: 75%;
 > input::placeholder {
   color: #AFAFAF;
   text-transform: uppercase;
-  letter-spacing: 1.6px;
+  letter-spacing: 1.8px;
   font-family: 'Quicksand', sans-serif;
+  font-size: 12px;
   font-weight: 500;
 }
 
 > input[type='text'], input[type='password'], label {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 1.2px;
   border-radius: 0.25rem;
   padding: 16px;
   padding: 1rem;
@@ -92,6 +130,7 @@ min-width: 75%;
 
 > label > i {
   color: #8A91FF;
+  font-size: 16px;
 }
 
 > input[type='text'], > input[type='password'] {
@@ -124,7 +163,7 @@ display: flex;
 margin: 0;
 min-width: 70%;
 flex-direction: column;
-justify-content: space-around;
+justify-content: space-between;
 `
 
 const PrototypeSubmit = ({className, onClick}) => (
@@ -132,6 +171,11 @@ const PrototypeSubmit = ({className, onClick}) => (
     <Button {...{onClick}} title="login"/>
   </div>
 )
+
+PrototypeSubmit.propTypes = {
+  className: PropTypes.string,
+  onClick: PropTypes.func
+}
 
 const Submit = styled(PrototypeSubmit)`
 align-self: center;

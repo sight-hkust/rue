@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled, {css} from 'styled-components'
 
-const PrototypeIcon = ({className, name, color}) => (
+const PrototypeIcon = ({className, name}) => (
   <i className={`fa fa-${name} ${className}`} style={{}}></i>
 )
 
@@ -15,9 +15,22 @@ PrototypeIcon.propTypes = {
 const Icon = styled(PrototypeIcon)`
   margin-right: 8px;
   color: ${({color})=>color};
+  font-size: ${({size}) => size};
 `
 
-const Avatar = styled.div`
+const PrototypeAvatar = ({className, src, onClick}) => (
+  <div className={className} onClick={onClick}>
+    <img src={src} alt=""/>
+  </div>
+)
+
+PrototypeAvatar.propTypes = {
+  className: PropTypes.string,
+  src: PropTypes.string,
+  onClick: PropTypes.func
+}
+
+const Avatar = styled(PrototypeAvatar)`
   width: 40px;
   height: 40px;
   border-radius: 20px;
@@ -25,6 +38,11 @@ const Avatar = styled.div`
   background-color: #f5f5f5;
   align-self: center;
   margin: 0 2%;
+
+  >img {
+    width: 32px;
+    height: 32px;
+  }
 `
 
 const PrototypeHeader = ({className, icon, title}) => (
@@ -55,17 +73,18 @@ const Header = styled(PrototypeHeader)`
   font-size: 1.25em;
 `
 
-const PrototypeButton = ({className, title, icon}) => {
+const PrototypeButton = ({className, title, icon, onClick}) => {
   if(icon){
-    return <button {...{className}}><i className={`fa fa-${icon}`}></i>{title}</button>
+    return <button onClick={onClick} {...{className}}><i className={`fa fa-${icon}`}></i>{title}</button>
   }
-  return <button {...{className}}>{title}</button>
+  return <button onClick={onClick} {...{className}}>{title}</button>
 }
 
 PrototypeButton.propTypes = {
   className: PropTypes.string,
   title: PropTypes.string,
-  icon: PropTypes.string
+  icon: PropTypes.string,
+  onClick: PropTypes.func
 }
 
 const Button = styled(PrototypeButton)`
@@ -85,7 +104,7 @@ const Button = styled(PrototypeButton)`
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: .025em;
-  color: #6772e5;
+  color: ${({color}) => color ? '#fff' : '#6772e5'};
   text-decoration: none;
   transition: all .15s ease;
   cursor: pointer;
